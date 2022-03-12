@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">USCRECSport</string>
+    <string name="title_activity_main_page">MainPage</string>
+    <string name="lyon_button">Lyon Center</string>
+    <string name="village_button">Village Gym</string>
+    <string name="usc_map">USC Map</string>
+    <string name="main_page_activity">main page activity</string>
 </resources>

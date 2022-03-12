@@ -1,9 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainPage">
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageviewMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/usc_map"
+        android:src="@drawable/usc_map"
+        tools:ignore="ImageContrastCheck" />
+
+    <Button
+        android:id="@+id/lyon_button"
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="297dp"
+        android:layout_marginBottom="386dp"
+        android:backgroundTint="#A62016"
+        android:contentDescription="@string/lyon_button"
+        android:text="@string/lyon_button"
+        android:textAllCaps="false"
+        android:textSize="8sp" />/>
+
+
+    <Button
+        android:id="@+id/village_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="201dp"
+        android:layout_marginBottom="419dp"
+        android:backgroundTint="#A62016"
+        android:contentDescription="@string/village_button"
+        android:text="@string/village_button"
+        android:textAllCaps="false"
+        android:textSize="8sp" />
+</RelativeLayout>
