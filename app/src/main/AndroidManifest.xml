@@ -10,12 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.USCRECSport">
         <activity
-            android:name=".MapPage"
+            android:name=".LyonBookingPage"
             android:exported="false" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -25,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainPage"
+            android:label="@string/main_page_activity" />
     </application>
 
 </manifest>

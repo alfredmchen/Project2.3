@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (userName.getText().toString().equals("admin") && passWord.getText().toString().equals("admin") ){
                     Toast.makeText(MainActivity.this,"Success",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this,MapPage.class);
+                    Intent intent = new Intent(MainActivity.this,MainPage.class);
                     startActivity(intent);
                 }else{
                     Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_SHORT).show();
