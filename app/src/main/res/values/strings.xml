@@ -14,4 +14,16 @@
     <string name="village_button">Village Gym</string>
     <string name="usc_map">USC Map</string>
     <string name="main_page_activity">main page activity</string>
+    <string name="ten_am">10:00-10:59</string>
+    <string name="eleven_am">11:00-11:59</string>
+    <string name="twelve_pm">12:00-12:59</string>
+    <string name="one_pm">13:00-13:59</string>
+    <string name="two_pm">14:00-14:59</string>
+    <string name="three_pm">15:00-15:59</string>
+    <string name="four_pm">16:00-16:59</string>
+    <string name="five_pm">17:00-17:59</string>
+    <string name="six_pm">18:00-18:59</string>
+    <string name="seven_pm">19:00-19:59</string>
+    <string name="eight_pm">20:00-20:59</string>
+    <string name="nine_pm">21:00-21:59</string>
 </resources>
