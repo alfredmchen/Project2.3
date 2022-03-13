@@ -20,17 +20,28 @@ public class MainActivity extends AppCompatActivity {
         EditText userName = (EditText) findViewById(R.id.username);
         EditText passWord = (EditText) findViewById(R.id.password);
         Button loginButt = (Button) findViewById(R.id.loginbutton);
+        Button newUserRegister = (Button) findViewById(R.id.registerjumpbutton);
+        DBHelperRegister db = new DBHelperRegister(this);
 
         loginButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (userName.getText().toString().equals("admin") && passWord.getText().toString().equals("admin") ){
-                    Toast.makeText(MainActivity.this,"Success",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this,MainPage.class);
+                String un = userName.getText().toString();
+                String pw = passWord.getText().toString();
+                if (db.checkusernamepassword(un,pw)) {
+                    Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, MainPage.class);
                     startActivity(intent);
-                }else{
-                    Toast.makeText(MainActivity.this,"Failed",Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        newUserRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent newUserintent = new Intent (MainActivity.this,RegisterActivity.class);
+                startActivity(newUserintent);
             }
         });
     }
