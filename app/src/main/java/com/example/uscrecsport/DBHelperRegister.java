@@ -15,7 +15,7 @@ public class DBHelperRegister extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table users(username TEXT PRIMARY KEY, password TEXT NOT NULL)");
+        db.execSQL("create table users(username TEXT PRIMARY KEY, password TEXT NOT NULL, picture_url TEXT)");
         db.execSQL("create table villageGym(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, month TEXT NOT NULL, " +
                 "date TEXT NOT NULL, time TEXT NOT NULL)");
         db.execSQL("create table villageGymAppointment(appointment_id INTEGER, " +
