@@ -25,6 +25,7 @@ public class MainPage extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, VillageBookingPage.class);
                 intent.putExtra("gymName","Lyon Center");
+                intent.putExtra("username",username);
                 startActivity(intent);
             }
         });
@@ -34,6 +35,7 @@ public class MainPage extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this,VillageBookingPage.class);
                 intent.putExtra("gymName","Village Gym");
+                intent.putExtra("username",username);
                 startActivity(intent);
             }
         });
