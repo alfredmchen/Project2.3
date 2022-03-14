@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AndroidStudioProjects.USCRECSport.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AndroidStudioProjects.USCRECSport.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Project2.3.USCRECSport.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Project2.3.USCRECSport.app.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/USCRECSport.iml" filepath="$PROJECT_DIR$/.idea/modules/USCRECSport.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/USCRECSport.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/USCRECSport.app.iml" />
     </modules>
