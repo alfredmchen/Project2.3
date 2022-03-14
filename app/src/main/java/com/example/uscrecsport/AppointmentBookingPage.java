@@ -22,12 +22,13 @@ public class AppointmentBookingPage extends AppCompatActivity {
         setContentView(R.layout.activity_appointment_booking_page);
         Intent temp = getIntent();
         String gymName = "";
-        int y;
-        int m;
-        int d;
+        String username = "";
         String apptyear = "";
         String apptmonth ="";
         String apptdate = "";
+        if(temp.getStringExtra("username") != null){
+            username = temp.getStringExtra("username");
+        }
         if(temp.getStringExtra("gymName") != null){
             gymName = temp.getStringExtra("gymName");
         }

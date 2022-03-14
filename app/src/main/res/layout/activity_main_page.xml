@@ -9,6 +9,8 @@
         android:id="@+id/imageviewMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="-135dp"
         android:contentDescription="@string/usc_map"
         android:src="@drawable/usc_map"
         tools:ignore="ImageContrastCheck" />
@@ -19,14 +21,13 @@
         android:layout_height="58dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="297dp"
-        android:layout_marginBottom="386dp"
+        android:layout_marginEnd="281dp"
+        android:layout_marginBottom="283dp"
         android:backgroundTint="@color/primary_color"
         android:contentDescription="@string/lyon_button"
         android:text="@string/lyon_button"
         android:textAllCaps="false"
-        android:textSize="8sp" />/>
-
+        android:textSize="8sp" />
 
     <Button
         android:id="@+id/village_button"
@@ -34,8 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="201dp"
-        android:layout_marginBottom="419dp"
+        android:layout_marginEnd="198dp"
+        android:layout_marginBottom="355dp"
         android:backgroundTint="#A62016"
         android:contentDescription="@string/village_button"
         android:text="@string/village_button"
@@ -44,18 +45,34 @@
 
     <TextView
         android:id="@+id/welcomeusertextview"
-        android:layout_width="218dp"
-        android:layout_height="70dp"
+        android:layout_width="201dp"
+        android:layout_height="46dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="97dp"
+        android:layout_marginStart="103dp"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="95dp"
-        android:layout_marginBottom="646dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginBottom="670dp"
         android:gravity="center"
         android:text="TextView"
-        android:textStyle="bold"
-        android:textSize="25sp"/>
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/currentAppointmentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="147dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginBottom="480dp"
+        android:text="Current Appointments"/>
+
+
 </RelativeLayout>
