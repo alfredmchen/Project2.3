@@ -17,7 +17,7 @@ public class DBHelperRegister extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table users(username TEXT PRIMARY KEY, password TEXT NOT NULL)");
         db.execSQL("create table villageGym(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, month INTEGER NOT NULL, " +
-                "date INTEGER NOT NULL, time INTEGER NOT NULL)");
+                "date TEXT NOT NULL, time TEXT NOT NULL)");
         db.execSQL("create table villageGymAppointment(appointment_id INTEGER PRIMARY KEY, " +
                 "username TEXT NOT NULL, FOREIGN KEY(appointment_id) REFERENCES villageGym(appointment_id))");
         for(int i=1; i < 32; i++) {
@@ -76,6 +76,13 @@ public class DBHelperRegister extends SQLiteOpenHelper {
         }
     }
 
+    public Integer checkAppointmentAvailability(Integer month, Integer date, Integer time){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cs = db.rawQuery("select * from villageGyns where month = ? and date = ? and time = ?",
+                new String[] {month.toString(), date.toString(), time.toString()});
+        return 1;
+    }
+
     public boolean checkAppointment(Integer time_id, String username){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cs = db.rawQuery("select * from villageGynAppointments where username = ?", new String[] {username});
@@ -85,7 +92,6 @@ public class DBHelperRegister extends SQLiteOpenHelper {
             return false;
         }
     }
-
 
     public boolean checkusername(String un){
         SQLiteDatabase db = this.getWritableDatabase();

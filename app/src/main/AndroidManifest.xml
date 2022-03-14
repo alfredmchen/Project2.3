@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.USCRECSport">
+
+        <activity
+            android:name=".VillageBookingPage"
+            android:exported="false" />
         <activity
             android:name=".BookingPage"
             android:exported="false" />
