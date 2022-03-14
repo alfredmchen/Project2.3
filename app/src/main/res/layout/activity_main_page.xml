@@ -43,26 +43,13 @@
         android:textSize="8sp" />
 
     <TextView
-<<<<<<< HEAD
-        android:id="@+id/currentAppointment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-=======
         android:id="@+id/welcomeusertextview"
         android:layout_width="218dp"
         android:layout_height="70dp"
->>>>>>> alfred
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-<<<<<<< HEAD
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="537dp"
-        android:text="TextView" />
-=======
         android:layout_marginStart="97dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="95dp"
@@ -71,5 +58,4 @@
         android:text="TextView"
         android:textStyle="bold"
         android:textSize="25sp"/>
->>>>>>> alfred
 </RelativeLayout>

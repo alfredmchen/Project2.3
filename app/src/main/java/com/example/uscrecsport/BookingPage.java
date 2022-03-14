@@ -13,16 +13,6 @@ public class BookingPage extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_booking_page);
 
-        Button button_8 = findViewById(R.id.button8);
-        Button button_10 = findViewById(R.id.button10);
-        Button button_12 = findViewById(R.id.button12);
-        Button button_14 = findViewById(R.id.button14);
-        Button button_16 = findViewById(R.id.button16);
-        Button button_18 = findViewById(R.id.button18);
-        Button button_20 = findViewById(R.id.button20);
-        Button button_22 = findViewById(R.id.button22);
-
-
 
     }
 }

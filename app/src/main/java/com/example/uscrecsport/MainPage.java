@@ -18,26 +18,13 @@ public class MainPage extends Activity {
         String username = getIntent().getStringExtra("username");
         Button lyon = findViewById(R.id.lyon_button);
         Button village = findViewById(R.id.village_button);
-<<<<<<< HEAD
-        TextView currentAppt = findViewById(R.id.currentAppointment);
-
-        Intent getIntentFromLogin = getIntent();
-        String username = getIntentFromLogin.getStringExtra("username");
-        currentAppt.setText(username);
-
-        lyon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this, VillageBookingPage.class);
-=======
         TextView welcome = findViewById(R.id.welcomeusertextview);
         welcome.setText("Welcome " + username);
         lyon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this, LyonBookingPage.class);
+                Intent intent = new Intent(MainPage.this, VillageBookingPage.class);
                 intent.putExtra("gymName","Lyon Center");
->>>>>>> alfred
                 startActivity(intent);
             }
         });

@@ -9,12 +9,8 @@ import android.widget.Button;
 import android.widget.CalendarView;
 
 public class VillageBookingPage extends AppCompatActivity {
-<<<<<<< HEAD
-=======
     Button mon_10;
     CalendarView cv;
-
->>>>>>> alfred
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
