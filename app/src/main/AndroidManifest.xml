@@ -10,10 +10,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.USCRECSport">
         <activity
+<<<<<<< HEAD
             android:name=".BookingPage"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
+=======
+            android:name=".AppointmentBookingPage"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VillageBookingPage"
+            android:exported="false" />
+        <activity
+            android:name=".LyonBookingPage"
+>>>>>>> alfred
             android:exported="false" />
         <activity
             android:name=".MainActivity"
