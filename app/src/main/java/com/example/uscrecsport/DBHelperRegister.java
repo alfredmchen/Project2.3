@@ -19,12 +19,6 @@ public class DBHelperRegister extends SQLiteOpenHelper {
         db.execSQL("create table villageGym(time_id INTEGER PRIMARY KEY, time INTEGER NOT NULL)");
         db.execSQL("create table villageGymAppointment(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "time_id INTEGER NOT NULL, username TEXT NOT NULL, FOREIGN KEY(time_id) REFERENCES villageGym(time_id))");
-        insertTime(110, 10);
-        insertTime(111, 11);
-        insertTime(112, 12);
-        insertTime(113, 13);
-        insertTime(114, 14);
-        insertTime(115, 15);
 
 
     }
