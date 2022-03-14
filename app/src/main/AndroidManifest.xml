@@ -11,9 +11,6 @@
         android:theme="@style/Theme.USCRECSport">
 
         <activity
-            android:name=".VillageBookingPage"
-            android:exported="false" />
-        <activity
             android:name=".BookingPage"
             android:exported="false" />
         <activity
