@@ -16,7 +16,6 @@ public class DBHelperRegister extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table users(username TEXT PRIMARY KEY, password TEXT NOT NULL)");
-<<<<<<< HEAD
         db.execSQL("create table villageGym(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, month INTEGER NOT NULL, " +
                 "date INTEGER NOT NULL, time INTEGER NOT NULL)");
         db.execSQL("create table villageGymAppointment(appointment_id INTEGER PRIMARY KEY, " +
@@ -26,13 +25,6 @@ public class DBHelperRegister extends SQLiteOpenHelper {
                 db.execSQL("insert into villageGym(month, date, time) values(3," + i + ", " + j + ")");
             }
         }
-=======
-        db.execSQL("create table villageGym(time_id INTEGER PRIMARY KEY, time INTEGER NOT NULL)");
-        db.execSQL("create table villageGymAppointment(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "time_id INTEGER NOT NULL, username TEXT NOT NULL, FOREIGN KEY(time_id) REFERENCES villageGym(time_id))");
-        admi
-
->>>>>>> 7965079dae162f263e13b0228c5c5374f5717326
     }
 
     @Override
