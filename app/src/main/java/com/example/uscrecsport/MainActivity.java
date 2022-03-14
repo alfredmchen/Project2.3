@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 if (db.checkusernamepassword(un,pw)) {
                     Toast.makeText(MainActivity.this, "Success", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, MainPage.class);
+                    intent.putExtra("username",un);
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
