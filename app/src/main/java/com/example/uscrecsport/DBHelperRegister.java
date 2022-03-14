@@ -16,12 +16,12 @@ public class DBHelperRegister extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table users(username TEXT PRIMARY KEY, password TEXT NOT NULL)");
-        db.execSQL("create table villageGym(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, month INTEGER NOT NULL, " +
+        db.execSQL("create table villageGym(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, month TEXT NOT NULL, " +
                 "date TEXT NOT NULL, time TEXT NOT NULL)");
         db.execSQL("create table villageGymAppointment(appointment_id INTEGER PRIMARY KEY, " +
                 "username TEXT NOT NULL, FOREIGN KEY(appointment_id) REFERENCES villageGym(appointment_id))");
         for(int i=1; i < 32; i++) {
-            for (int j = 10; j < 25; j+=2) {
+            for (int j = 8; j < 24; j+=2) {
                 db.execSQL("insert into villageGym(month, date, time) values(3," + i + ", " + j + ")");
             }
         }
@@ -49,7 +49,7 @@ public class DBHelperRegister extends SQLiteOpenHelper {
         }
     }
 
-    private boolean insertTime(Integer month, Integer date, Integer time){
+    public boolean insertTime(Integer month, Integer date, Integer time){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("month", month);
@@ -71,18 +71,29 @@ public class DBHelperRegister extends SQLiteOpenHelper {
         long res = db.insert("villageGym" ,null, cv);
         if(res == -1){
             return false;
+        }else return true;
+    }
+
+    public Integer getAppointmentId(String month, String date, String time){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cs = db.rawQuery("select * from villageGym where month = ? and date = ? and time = ?",
+                new String[] {month, date, time});
+        if(cs.moveToFirst()){
+            return cs.getInt(0);
+        }
+        return -1;
+    }
+
+    public boolean checkAppointmentAvailability(String month, String date, String time){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cs = db.rawQuery("select * from villageGymAppointment where appointment_id = ?",
+                new String[]{getAppointmentId(month, date, time).toString()});
+        if(cs.getCount() > 3){
+            return false;
         }else{
             return true;
         }
     }
-
-    public Integer checkAppointmentAvailability(Integer month, Integer date, Integer time){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cs = db.rawQuery("select * from villageGyns where month = ? and date = ? and time = ?",
-                new String[] {month.toString(), date.toString(), time.toString()});
-        return 1;
-    }
-
     public boolean checkAppointment(Integer time_id, String username){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cs = db.rawQuery("select * from villageGynAppointments where username = ?", new String[] {username});

@@ -27,6 +27,8 @@ public class VillageBookingPage extends AppCompatActivity {
                 intent.putExtra("month", Integer.toString(month+1));
                 intent.putExtra("date", Integer.toString(date));
                 startActivity(intent);
+
+
             }
         });
 

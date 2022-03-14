@@ -1,13 +1,20 @@
 package com.example.uscrecsport;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.arch.core.executor.TaskExecutor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.material.button.MaterialButton;
 
 public class AppointmentBookingPage extends AppCompatActivity {
 
+    DBHelperRegister dbHelperRegister = new DBHelperRegister(AppointmentBookingPage.this);
     TextView titleTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +42,37 @@ public class AppointmentBookingPage extends AppCompatActivity {
         }
         titleTextView = (TextView) findViewById(R.id.titleTextView);
         titleTextView.setText(apptmonth + " / " + apptdate + " Appointment Times");
+
+        LinearLayout appointment_list = (LinearLayout) findViewById(R.id.appointment_list);
+        for(int i=8; i<24; i+=2){
+            LinearLayout layout = new LinearLayout(this);
+            layout.setOrientation(LinearLayout.HORIZONTAL);
+
+            TextView text = new TextView(this);
+            Button button = new Button(this);
+
+            text.setText(i + ":00 - " +(i+2) + ":00");
+            text.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    0.8f
+            ));
+
+            if(dbHelperRegister.checkAppointmentAvailability(apptmonth, apptdate, String.valueOf(i))){
+                button.setText("Book");
+            }else{
+                button.setText("Remind Me");
+            }
+            button.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    0.8f
+            ));
+            button.setId(i);
+            layout.addView(text);
+            layout.addView(button);
+
+            appointment_list.addView(layout);
+        }
     }
 }
