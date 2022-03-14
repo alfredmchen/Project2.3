@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if(db.checkusername(username)){
                         Toast.makeText(RegisterActivity.this, "Username already exist", Toast.LENGTH_SHORT).show();
                     }else{
-                        boolean last = db.insertd(username,password);
+                        boolean last = db.insertUser(username,password);
                         if(last){
                             Toast.makeText(RegisterActivity.this, "successfully registered", Toast.LENGTH_SHORT).show();
                         }else{

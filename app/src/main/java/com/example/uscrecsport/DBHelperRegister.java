@@ -10,7 +10,7 @@ import android.widget.Toast;
 public class DBHelperRegister extends SQLiteOpenHelper {
 
     public DBHelperRegister(Context context){
-        super(context, "UserLogin.db",null, 1);
+        super(context, "recCenter.db",null, 1);
     }
 
     @Override
