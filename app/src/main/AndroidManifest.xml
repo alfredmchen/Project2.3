@@ -10,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.USCRECSport" >
         <activity
+            android:name=".AppointmentBookingPage"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VillageBookingPage"
             android:exported="false" />
         <activity
             android:name=".LyonBookingPage"
