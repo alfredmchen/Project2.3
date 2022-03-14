@@ -21,7 +21,7 @@ public class MainPage extends Activity {
         lyon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this, LyonBookingPage.class);
+                Intent intent = new Intent(MainPage.this, VillageBookingPage.class);
                 startActivity(intent);
             }
         });

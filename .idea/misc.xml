@@ -5,12 +5,14 @@
       <map>
         <entry key="..\:/Users/LenovoYoga/AndroidStudioProjects/USCRECSport/app/src/main/res/layout/activity_main.xml" value="0.1308876811594203" />
         <entry key="app/src/main/res/drawable/divider.xml" value="0.201" />
+        <entry key="app/src/main/res/layout/activity_booking_page.xml" value="0.26900900135869565" />
         <entry key="app/src/main/res/layout/activity_lyon_booking_page.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.221875" />
         <entry key="app/src/main/res/layout/activity_main_page.xml" value="0.426" />
         <entry key="app/src/main/res/layout/activity_map_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.221875" />
-        <entry key="app/src/main/res/layout/activity_village_booking_page.xml" value="0.41560975609756096" />
+        <entry key="app/src/main/res/layout/activity_village_booking_page.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/bookingpage.xml" value="0.13043478260869565" />
       </map>
     </option>
   </component>

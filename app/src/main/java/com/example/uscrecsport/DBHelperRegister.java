@@ -16,17 +16,15 @@ public class DBHelperRegister extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table users(username TEXT PRIMARY KEY, password TEXT NOT NULL)");
-        db.execSQL("create table villageGym(time_id INTEGER PRIMARY KEY, time INTEGER NOT NULL)");
-        db.execSQL("create table villageGymAppointment(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "time_id INTEGER NOT NULL, username TEXT NOT NULL, FOREIGN KEY(time_id) REFERENCES villageGym(time_id))");
-        insertTime(110, 10);
-        insertTime(111, 11);
-        insertTime(112, 12);
-        insertTime(113, 13);
-        insertTime(114, 14);
-        insertTime(115, 15);
-
-
+        db.execSQL("create table villageGym(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, month INTEGER NOT NULL, " +
+                "date INTEGER NOT NULL, time INTEGER NOT NULL)");
+        db.execSQL("create table villageGymAppointment(appointment_id INTEGER PRIMARY KEY, " +
+                "username TEXT NOT NULL, FOREIGN KEY(appointment_id) REFERENCES villageGym(appointment_id))");
+        for(int i=1; i < 32; i++) {
+            for (int j = 10; j < 25; j+=2) {
+                db.execSQL("insert into villageGym(month, date, time) values(3," + i + ", " + j + ")");
+            }
+        }
     }
 
     @Override
@@ -51,10 +49,11 @@ public class DBHelperRegister extends SQLiteOpenHelper {
         }
     }
 
-    private boolean insertTime(Integer time_id, Integer time){
+    private boolean insertTime(Integer month, Integer date, Integer time){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("time_id", time_id);
+        cv.put("month", month);
+        cv.put("date", date);
         cv.put("time", time);
         long res = db.insert("villageGym",null, cv);
         if(res == -1){
@@ -64,11 +63,12 @@ public class DBHelperRegister extends SQLiteOpenHelper {
         }
     }
 
-    public boolean insertAppointment(Integer time_id, String username){
+    public boolean insertAppointment(Integer appointment_id, String username){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("username", username);
-        long res = db.insert("villageGym(" + time_id + ")",null, cv);
+        cv.put("appointment_id", appointment_id);
+        long res = db.insert("villageGym" ,null, cv);
         if(res == -1){
             return false;
         }else{
