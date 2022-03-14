@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainPage extends Activity {
 
@@ -17,6 +18,11 @@ public class MainPage extends Activity {
 
         Button lyon = findViewById(R.id.lyon_button);
         Button village = findViewById(R.id.village_button);
+        TextView currentAppt = findViewById(R.id.currentAppointment);
+
+        Intent getIntentFromLogin = getIntent();
+        String username = getIntentFromLogin.getStringExtra("username");
+        currentAppt.setText(username);
 
         lyon.setOnClickListener(new View.OnClickListener() {
             @Override
