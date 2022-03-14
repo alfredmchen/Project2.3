@@ -1,7 +1,5 @@
 package com.example.uscrecsport;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,8 +24,8 @@ public class MainPage extends Activity {
         lyon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this, VillageBookingPage.class);
-                intent.putExtra("gymName","Lyon Center");
+                Intent intent = new Intent(MainPage.this, BookingPage.class);
+                intent.putExtra("gymName","lyon");
                 intent.putExtra("username",username);
                 startActivity(intent);
             }
@@ -36,8 +34,8 @@ public class MainPage extends Activity {
         village.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainPage.this,VillageBookingPage.class);
-                intent.putExtra("gymName","Village Gym");
+                Intent intent = new Intent(MainPage.this, BookingPage.class);
+                intent.putExtra("gymName","village");
                 intent.putExtra("username",username);
                 startActivity(intent);
             }
