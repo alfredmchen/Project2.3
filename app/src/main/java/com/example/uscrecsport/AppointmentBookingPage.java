@@ -73,21 +73,28 @@ public class AppointmentBookingPage extends AppCompatActivity{
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dbHelperRegister.insertAppointment(finalGymName, dbHelperRegister.getAppointmentId(finalGymName, finalApptmonth,
-                                finalApptdate, String.valueOf(finalI)), finalUsername);
+                        if(dbHelperRegister.insertAppointment(finalGymName, dbHelperRegister.getAppointmentId(finalGymName, finalApptmonth,
+                                finalApptdate, String.valueOf(finalI)), finalUsername)){
+                            Toast.makeText(AppointmentBookingPage.this, "successfully booked", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(AppointmentBookingPage.this, "booking already exists", Toast.LENGTH_SHORT).show();
+                        }
                         if(!dbHelperRegister.checkAppointmentAvailability(finalGymName, finalApptmonth, finalApptdate, String.valueOf(finalI))) {
                             button.setText("Remind Me");
                             button.setBackgroundColor(Color.RED);
                             button.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    dbHelperRegister.insertWaitlist(finalGymName, dbHelperRegister.getAppointmentId(finalGymName, finalApptmonth,
-                                            finalApptdate, String.valueOf(finalI)), finalUsername);
-                                    Toast.makeText(AppointmentBookingPage.this, "successfully put on waitlist", Toast.LENGTH_SHORT).show();
+                                    if(dbHelperRegister.insertWaitlist(finalGymName, dbHelperRegister.getAppointmentId(finalGymName, finalApptmonth,
+                                            finalApptdate, String.valueOf(finalI)), finalUsername)) {
+                                        Toast.makeText(AppointmentBookingPage.this, "successfully put on waitlist", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        Toast.makeText(AppointmentBookingPage.this, "already on waitlist", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             });
                         }
-                        Toast.makeText(AppointmentBookingPage.this, "successfully booked", Toast.LENGTH_SHORT).show();
+
                     }
                 });
             }else{
@@ -96,9 +103,12 @@ public class AppointmentBookingPage extends AppCompatActivity{
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        dbHelperRegister.insertWaitlist(finalGymName, dbHelperRegister.getAppointmentId(finalGymName, finalApptmonth,
-                                finalApptdate, String.valueOf(finalI)), finalUsername);
-                        Toast.makeText(AppointmentBookingPage.this, "successfully put on waitlist", Toast.LENGTH_SHORT).show();
+                        if(dbHelperRegister.insertWaitlist(finalGymName, dbHelperRegister.getAppointmentId(finalGymName, finalApptmonth,
+                                finalApptdate, String.valueOf(finalI)), finalUsername)) {
+                            Toast.makeText(AppointmentBookingPage.this, "successfully put on waitlist", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(AppointmentBookingPage.this, "already on waitlist", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
