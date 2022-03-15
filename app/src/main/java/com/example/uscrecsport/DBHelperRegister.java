@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBHelperRegister extends SQLiteOpenHelper {
 
     public DBHelperRegister(Context context){
@@ -16,19 +19,25 @@ public class DBHelperRegister extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table users(username TEXT PRIMARY KEY, password TEXT NOT NULL)");
+        db.execSQL("create table users(username TEXT PRIMARY KEY, password TEXT NOT NULL, picture_url TEXT)");
+
         db.execSQL("create table villageGym(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, month TEXT NOT NULL, " +
                 "date TEXT NOT NULL, time TEXT NOT NULL)");
         db.execSQL("create table villageGymAppointment(appointment_id INTEGER, " +
                 "username TEXT NOT NULL, FOREIGN KEY(appointment_id) REFERENCES villageGym(appointment_id))");
         db.execSQL("create table villageGymWaitlist(appointment_id INTEGER, " +
                 "username TEXT NOT NULL, FOREIGN KEY(appointment_id) REFERENCES villageGym(appointment_id))");
+
         db.execSQL("create table lyonGym(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, month TEXT NOT NULL, " +
                 "date TEXT NOT NULL, time TEXT NOT NULL)");
         db.execSQL("create table lyonGymAppointment(appointment_id INTEGER, " +
                 "username TEXT NOT NULL, FOREIGN KEY(appointment_id) REFERENCES villageGym(appointment_id))");
         db.execSQL("create table lyonGymWaitlist(appointment_id INTEGER, " +
                 "username TEXT NOT NULL, FOREIGN KEY(appointment_id) REFERENCES villageGym(appointment_id))");
+
+        db.execSQL("create table notificationList(user TEXT, gym TEXT, appointment_id INTEGER)");
+
+
         for(int i=1; i < 32; i++) {
             for (int j = 8; j < 24; j+=2) {
                 db.execSQL("insert into villageGym(month, date, time) values(3," + i + ", " + j + ")");
@@ -77,28 +86,70 @@ public class DBHelperRegister extends SQLiteOpenHelper {
         }
     }
 
+    public boolean insertNotification(String gym, Integer appointment_id, String user){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("gym", gym);
+        cv.put("appointment_id", appointment_id);
+        cv.put("user", user);
+
+        long res = db.insert("notificationList",null, cv);
+        if(res == -1){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     public boolean cancelAppointment(String gym, Integer appointment_id, String username){
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "";
+        String getTimeString = "";
         if(gym.equals("village")){
             queryString = "DELETE FROM villageGymAppointment " +
                     "WHERE appointment_id = " + appointment_id + " and username = " + username;
+            getTimeString = "SELECT * FROM villageGym WHERE appointment_id = " + appointment_id;
         }else{
             queryString = "DELETE FROM lyonGymAppointment " +
                     "WHERE appointment_id = " + appointment_id + " and username = " + username;
+            getTimeString = "SELECT * FROM lyonGym WHERE appointment_id = " + appointment_id;
         }
 
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()){
+            Cursor getTime = db.rawQuery(getTimeString, null);
+            if(!checkAppointmentAvailability(gym, getTime.getString(1), getTime.getString(2), getTime.getString(3))) {
+                moveWaitlistToNotificationList(gym, appointment_id);
+                deleteWaitlist(gym, appointment_id);
+            }
             return true;
         }else{
             return false;
         }
     }
 
+    public void moveWaitlistToNotificationList(String gym, Integer appointment_id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "";
+        if(gym.equals("village")){
+            queryString = "SELECT * FROM villageGymWaitlist WHERE appointment_id = " + appointment_id;
+        }else{
+            queryString = "SELECT * FROM lyonGymWaitlist WHERE appointment_id = " + appointment_id;;
+        }
+        Cursor cursor = db.rawQuery(queryString, null);
+
+        if(cursor.moveToFirst()){
+            do{
+                insertNotification(gym, appointment_id, cursor.getString(1));
+            }while(cursor.moveToNext());
+        }
+
+    }
+
     public boolean deleteWaitlist(String gym, Integer appointment_id){
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "";
+
         if(gym.equals("village")){
             queryString = "DELETE FROM villageGymWaitlist WHERE appointment_id = " + appointment_id;
         }else{
@@ -118,6 +169,12 @@ public class DBHelperRegister extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("appointment_id", appointment_id);
         cv.put("username", username);
+
+        boolean appointment = checkAppointment(gym, appointment_id, username);
+        if(appointment){
+            return false;
+        }
+
         long res;
         if(gym.equals("village")){
             res = db.insert("villageGymAppointment" ,null, cv);
@@ -135,6 +192,12 @@ public class DBHelperRegister extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("appointment_id", appointment_id);
         cv.put("username", username);
+
+        boolean waitlist = checkWaitlist(gym, appointment_id, username);
+        if(waitlist){
+            return false;
+        }
+
         long res;
         if(gym.equals("village")){
             res = db.insert("villageGymWaitlist" ,null, cv);
@@ -148,7 +211,7 @@ public class DBHelperRegister extends SQLiteOpenHelper {
     }
 
     public Integer getAppointmentId(String gym, String month, String date, String time){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cs;
 
         if(gym.equals("village")){
@@ -164,8 +227,30 @@ public class DBHelperRegister extends SQLiteOpenHelper {
         return -1;
     }
 
+    public List<String> getTime(String gym, Integer appointment_id){ // return string of time in month date time order
+        List<String> returnList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cs;
+
+        if(gym.equals("village")){
+            cs = db.rawQuery("select * from villageGym where appointment_id = ?",
+                    new String[] {appointment_id.toString()});
+        }else{
+            cs = db.rawQuery("select * from lyonGym where appointment_id = ?",
+                    new String[] {appointment_id.toString()});
+        }
+        if(cs.moveToFirst()){
+            do{
+               returnList.add(cs.getString(1)) ;
+                returnList.add(cs.getString(2)) ;
+                returnList.add(cs.getString(3)) ;
+            }while(cs.moveToNext());
+        }
+        return returnList;
+    }
+
     public boolean checkAppointmentAvailability(String gym, String month, String date, String time){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cs;
         if(gym.equals("village")){
             cs = db.rawQuery("select * from villageGymAppointment where appointment_id = ?",
@@ -180,13 +265,29 @@ public class DBHelperRegister extends SQLiteOpenHelper {
             return true;
         }
     }
-    public boolean checkAppointment(String gym, String username){
-        SQLiteDatabase db = this.getWritableDatabase();
+
+    public boolean checkAppointment(String gym, Integer appointment_id, String username){
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cs;
         if(gym.equals("village")){
-            cs = db.rawQuery("select * from villageGymAppointment where username = ?", new String[] {username});
+            cs = db.rawQuery("select * from villageGymAppointment where appointment_id = ? and username = ?", new String[] {appointment_id.toString(), username});
         }else{
-            cs = db.rawQuery("select * from lyonGymAppointment where username = ?", new String[] {username});
+            cs = db.rawQuery("select * from lyonGymAppointment where appointment_id = ? and username = ?", new String[] {appointment_id.toString(), username});
+        }
+        if(cs.getCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean checkWaitlist(String gym, Integer appointment_id, String username){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cs;
+        if(gym.equals("village")){
+            cs = db.rawQuery("select * from villageGymWaitlist where appointment_id = ? and username = ?", new String[] {appointment_id.toString(), username});
+        }else{
+            cs = db.rawQuery("select * from lyonGymWaitlist where appointment_id = ? and username = ?", new String[] {appointment_id.toString(), username});
         }
         if(cs.getCount() > 0){
             return true;
@@ -196,7 +297,7 @@ public class DBHelperRegister extends SQLiteOpenHelper {
     }
 
     public boolean checkusername(String un){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cs = db.rawQuery("select * from users where username = ?", new String[] {un});
         if(cs.getCount() > 0){
             return true;
@@ -206,7 +307,7 @@ public class DBHelperRegister extends SQLiteOpenHelper {
     }
 
     public boolean checkusernamepassword(String un, String pw){
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cs = db.rawQuery("select * from users where username = ? and password = ? ", new String[] {un,pw});
         if(cs.getCount() > 0){
             return true;
