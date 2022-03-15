@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DBHelperRegister extends SQLiteOpenHelper {
 
     public DBHelperRegister(Context context){
@@ -221,6 +224,28 @@ public class DBHelperRegister extends SQLiteOpenHelper {
             return cs.getInt(0);
         }
         return -1;
+    }
+
+    public List<String> getTime(String gym, Integer appointment_id){ // return string of time in month date time order
+        List<String> returnList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cs;
+
+        if(gym.equals("village")){
+            cs = db.rawQuery("select * from villageGym where appointment_id = ?",
+                    new String[] {appointment_id.toString()});
+        }else{
+            cs = db.rawQuery("select * from lyonGym where appointment_id = ?",
+                    new String[] {appointment_id.toString()});
+        }
+        if(cs.moveToFirst()){
+            do{
+               returnList.add(cs.getString(1)) ;
+                returnList.add(cs.getString(2)) ;
+                returnList.add(cs.getString(3)) ;
+            }while(cs.moveToNext());
+        }
+        return returnList;
     }
 
     public boolean checkAppointmentAvailability(String gym, String month, String date, String time){
