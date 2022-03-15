@@ -3,16 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".VillageBookingPage">
-
-
+    android:layout_height="match_parent">
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/booking_page_textview"
         android:layout_width="199dp"
         android:layout_height="29dp"
         android:gravity="center"
-        android:text="Village Gym Booking Times"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/booking_page_textview"
         app:layout_constraintVertical_bias="0.129">
 
     </CalendarView>
