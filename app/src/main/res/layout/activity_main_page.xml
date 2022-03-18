@@ -75,7 +75,20 @@
         android:background="#CDC2C2"
         android:text="Current Appointments" />
 
-
+    <Button
+        android:id="@+id/summarypagebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="481dp"
+        android:background="?android:attr/selectableItemBackground"
+        />
 
 
 </RelativeLayout>

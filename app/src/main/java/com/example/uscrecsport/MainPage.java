@@ -19,6 +19,7 @@ public class MainPage extends Activity {
         String username = getIntent().getStringExtra("username");
         Button lyon = findViewById(R.id.lyon_button);
         Button village = findViewById(R.id.village_button);
+        Button summaryPage = findViewById(R.id.summarypagebutton);
         TextView welcome = findViewById(R.id.welcomeusertextview);
         TextView currentAppt = findViewById(R.id.currentAppointmentTextView);
         DBHelperRegister db = new DBHelperRegister(this);
@@ -51,6 +52,15 @@ public class MainPage extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainPage.this, BookingPage.class);
                 intent.putExtra("gymName","village");
+                intent.putExtra("username",username);
+                startActivity(intent);
+            }
+        });
+
+        summaryPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainPage.this, SummaryPage.class);
                 intent.putExtra("username",username);
                 startActivity(intent);
             }
