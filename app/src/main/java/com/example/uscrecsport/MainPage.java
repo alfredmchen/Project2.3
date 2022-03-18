@@ -22,7 +22,7 @@ public class MainPage extends Activity {
         Button summaryPage = findViewById(R.id.summarypagebutton);
         TextView welcome = findViewById(R.id.welcomeusertextview);
         TextView currentAppt = findViewById(R.id.currentAppointmentTextView);
-        DBHelperRegister db = new DBHelperRegister(this);
+        DBHelper db = new DBHelper(this);
         Calendar cal = Calendar.getInstance();
         int currmonth = cal.get(Calendar.MONTH) + 1;
         int currday = cal.get(Calendar.DAY_OF_MONTH);
