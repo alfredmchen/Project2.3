@@ -82,6 +82,7 @@ public class AppointmentBookingPage extends AppCompatActivity{
                         if(!dbHelperRegister.checkAppointmentAvailability(finalGymName, finalApptmonth, finalApptdate, String.valueOf(finalI))) {
                             button.setText("Remind Me");
                             button.setBackgroundColor(Color.RED);
+                            button.setTextColor(Color.WHITE);
                             button.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
