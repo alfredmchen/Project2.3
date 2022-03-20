@@ -43,6 +43,9 @@ public class MainPage extends Activity {
                 Intent intent = new Intent(MainPage.this, BookingPage.class);
                 intent.putExtra("gymName","lyon");
                 intent.putExtra("username",username);
+                intent.putExtra("currmonth", currmonth);
+                intent.putExtra("currday", currday);
+                intent.putExtra("currhour", currhour);
                 startActivity(intent);
             }
         });
@@ -53,6 +56,9 @@ public class MainPage extends Activity {
                 Intent intent = new Intent(MainPage.this, BookingPage.class);
                 intent.putExtra("gymName","village");
                 intent.putExtra("username",username);
+                intent.putExtra("currmonth", currmonth);
+                intent.putExtra("currday", currday);
+                intent.putExtra("currhour", currhour);
                 startActivity(intent);
             }
         });

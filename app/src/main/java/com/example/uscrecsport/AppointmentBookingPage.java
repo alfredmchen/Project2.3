@@ -13,8 +13,9 @@ import android.widget.Toast;
 
 public class AppointmentBookingPage extends AppCompatActivity{
 
-    DBHelper dbHelperRegister = new DBHelper(AppointmentBookingPage.this);
+    DBHelper db = new DBHelper(AppointmentBookingPage.this);
     TextView titleTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,25 +64,25 @@ public class AppointmentBookingPage extends AppCompatActivity{
             int finalI = i;
             String finalUsername = username;
 
-            if(dbHelperRegister.checkAppointmentAvailability(gymName, apptmonth, apptdate, String.valueOf(i))){
+            if(db.checkAppointmentAvailability(gymName, apptmonth, apptdate, String.valueOf(i))){
                 button.setText("Book");
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(dbHelperRegister.insertAppointment(finalGymName, dbHelperRegister.getAppointmentId(finalGymName, finalApptmonth,
+                        if(db.insertAppointment(finalGymName, db.getAppointmentId(finalGymName, finalApptmonth,
                                 finalApptdate, String.valueOf(finalI)), finalUsername)){
                             Toast.makeText(AppointmentBookingPage.this, "successfully booked", Toast.LENGTH_SHORT).show();
                         }else{
                             Toast.makeText(AppointmentBookingPage.this, "booking already exists", Toast.LENGTH_SHORT).show();
                         }
-                        if(!dbHelperRegister.checkAppointmentAvailability(finalGymName, finalApptmonth, finalApptdate, String.valueOf(finalI))) {
+                        if(!db.checkAppointmentAvailability(finalGymName, finalApptmonth, finalApptdate, String.valueOf(finalI))) {
                             button.setText("Remind Me");
                             button.setBackgroundColor(Color.RED);
                             button.setTextColor(Color.WHITE);
                             button.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    if(dbHelperRegister.insertWaitlist(finalGymName, dbHelperRegister.getAppointmentId(finalGymName, finalApptmonth,
+                                    if(db.insertWaitlist(finalGymName, db.getAppointmentId(finalGymName, finalApptmonth,
                                             finalApptdate, String.valueOf(finalI)), finalUsername)) {
                                         Toast.makeText(AppointmentBookingPage.this, "successfully put on waitlist", Toast.LENGTH_SHORT).show();
                                     }else{
@@ -99,7 +100,7 @@ public class AppointmentBookingPage extends AppCompatActivity{
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if(dbHelperRegister.insertWaitlist(finalGymName, dbHelperRegister.getAppointmentId(finalGymName, finalApptmonth,
+                        if(db.insertWaitlist(finalGymName, db.getAppointmentId(finalGymName, finalApptmonth,
                                 finalApptdate, String.valueOf(finalI)), finalUsername)) {
                             Toast.makeText(AppointmentBookingPage.this, "successfully put on waitlist", Toast.LENGTH_SHORT).show();
                         }else{

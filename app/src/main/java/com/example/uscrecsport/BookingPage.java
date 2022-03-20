@@ -39,7 +39,23 @@ public class BookingPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
 
+    @Override
+    public void onBackPressed() {
+        DBHelper db = new DBHelper(this);
 
+        String username = getIntent().getStringExtra("username");
+        String currmonth = getIntent().getStringExtra("currmonth");
+        String currday = getIntent().getStringExtra("currday");
+        String currhour = getIntent().getStringExtra("currhour");
+
+        TextView currentAppt = findViewById(R.id.currentAppointmentTextView);
+        String resultCurrentAppt = db.getCurrentAppointments(username,Integer.valueOf(currmonth),
+                Integer.valueOf(currday),Integer.valueOf(currhour));
+        currentAppt.setText(resultCurrentAppt);
+
+        Intent intent = new Intent(BookingPage.this, MainPage.class);
+        startActivity(intent);
     }
 }
