@@ -26,47 +26,87 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.039" />
 
-    <TextView
-        android:id="@+id/currentApptTextviewSummaryPage"
-        android:layout_width="348dp"
-        android:layout_height="203dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="95dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="433dp"
-        android:background="#CDC2C2"
-        android:text="@string/current_appointments"
-        android:textColor="#424242"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.168" />
-
-    <TextView
-        android:id="@+id/pastApptTextviewSummaryPage"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="209dp"
+        android:layout_height="254dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="345dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="177dp"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="373dp"
         android:background="#CDC2C2"
-        android:text="@string/past_appointments"
-        android:textColor="#424242"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.395" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/currentApptTextviewSummaryPage"
+            android:layout_width="347dp"
+            android:layout_height="wrap_content"
+            android:text="@string/current_appointments"
+            android:textColor="#424242"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.168" />
+
+        <ScrollView
+            android:id="@+id/current_appointments_list_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/current_appointments_list_scroll_view">
+
+            <LinearLayout
+                android:id="@+id/current_appointments_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="249dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="37dp"
+        android:layout_marginTop="396dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginBottom="86dp"
+        android:background="#CDC2C2"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pastApptTextviewSummaryPage"
+            android:layout_width="347dp"
+            android:layout_height="wrap_content"
+            android:text="@string/past_appointments"
+            android:textColor="#424242"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.168" />
+
+        <ScrollView
+            android:id="@+id/past_appointments_list_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/past_appointments_list_scroll_view">
+
+            <LinearLayout
+                android:id="@+id/past_appointments_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+    </LinearLayout>
+
 </RelativeLayout>
