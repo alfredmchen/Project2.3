@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         EditText passWord = (EditText) findViewById(R.id.password);
         Button loginButt = (Button) findViewById(R.id.loginbutton);
         Button newUserRegister = (Button) findViewById(R.id.registerjumpbutton);
-        DBHelperRegister db = new DBHelperRegister(this);
+        DBHelper db = new DBHelper(this);
 
         loginButt.setOnClickListener(new View.OnClickListener() {
             @Override

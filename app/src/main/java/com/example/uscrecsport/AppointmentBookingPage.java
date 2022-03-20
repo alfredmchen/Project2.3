@@ -1,24 +1,19 @@
 package com.example.uscrecsport;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.arch.core.executor.TaskExecutor;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
-
 public class AppointmentBookingPage extends AppCompatActivity{
 
-    DBHelperRegister dbHelperRegister = new DBHelperRegister(AppointmentBookingPage.this);
+    DBHelper dbHelperRegister = new DBHelper(AppointmentBookingPage.this);
     TextView titleTextView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

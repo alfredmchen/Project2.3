@@ -18,7 +18,7 @@ public class RegisterActivity extends AppCompatActivity {
         EditText pw = (EditText) findViewById(R.id.regispassword);
         Button regisButton = (Button) findViewById(R.id.registerbutton);
         Button backtoSignInButton = (Button) findViewById(R.id.backtosigninbtn);
-        DBHelperRegister db = new DBHelperRegister(this);
+        DBHelper db = new DBHelper(this);
 
         regisButton.setOnClickListener(new View.OnClickListener() {
             @Override

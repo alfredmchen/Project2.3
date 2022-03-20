@@ -1,5 +1,6 @@
 package com.example.uscrecsport;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -10,9 +11,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBHelperRegister extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
 
-    public DBHelperRegister(Context context){
+    public DBHelper(Context context){
         super(context, "recCenter.db",null, 1);
     }
 
@@ -264,6 +265,7 @@ public class DBHelperRegister extends SQLiteOpenHelper {
             return true;
         }
     }
+
     public boolean checkAppointment(String gym, Integer appointment_id, String username){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cs;
@@ -312,5 +314,103 @@ public class DBHelperRegister extends SQLiteOpenHelper {
         }else{
             return false;
         }
+    }
+
+    public String getPastAppointments(String un, int currmonth, int currday, int currhour) {
+        String result = "Past Appointments: \n";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor lcs = db.rawQuery("select * from lyonGymAppointment where username = ?", new String[]{un});
+        if (lcs.getCount() > 0){
+            while (lcs.moveToNext()) {
+                String time = lcs.getString(0);
+                if(!isCurrentAppt(currmonth,currday,currhour,time)) {
+                    Cursor cs = db.rawQuery("select * from lyonGym where appointment_id = ?", new String[]{time});
+                    cs.moveToFirst();
+                    String month = cs.getString(cs.getColumnIndexOrThrow("month"));
+                    String day = cs.getString(cs.getColumnIndexOrThrow("date"));
+                    String hour = cs.getString(cs.getColumnIndexOrThrow("time"));
+                    result += ("Lyon center: " + month + " / " + day + " "+ hour + ":00\n");
+                }
+            }
+            lcs.close();
+        }
+        Cursor vcs = db.rawQuery("select * from villageGymAppointment where username = ?", new String[]{un});
+        if (vcs.getCount() > 0){
+            while (vcs.moveToNext()) {
+                String time = vcs.getString(0);
+                if(isCurrentAppt(currmonth,currday,currhour,time)) {
+                    Cursor cs = db.rawQuery("select * from lyonGym where appointment_id = ?", new String[]{time});
+                    cs.moveToFirst();
+                    String month = cs.getString(cs.getColumnIndexOrThrow("month"));
+                    String day = cs.getString(cs.getColumnIndexOrThrow("date"));
+                    String hour = cs.getString(cs.getColumnIndexOrThrow("time"));
+                    result += ("Village gym: " + month + " / " + day + " "+ hour + ":00\n");
+                }
+            }
+            vcs.close();
+        }
+        return result;
+    }
+
+    public String getCurrentAppointments(String un, int currmonth, int currday, int currhour) {
+        String result = "Current Appointments: \n";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor lcs = db.rawQuery("select * from lyonGymAppointment where username = ?", new String[]{un});
+        if (lcs.getCount() > 0){
+            while (lcs.moveToNext()) {
+                String time = lcs.getString(0);
+                if(isCurrentAppt(currmonth,currday,currhour,time)) {
+                    Cursor cs = db.rawQuery("select * from lyonGym where appointment_id = ?", new String[]{time});
+                    cs.moveToFirst();
+                    String month = cs.getString(cs.getColumnIndexOrThrow("month"));
+                    String day = cs.getString(cs.getColumnIndexOrThrow("date"));
+                    String hour = cs.getString(cs.getColumnIndexOrThrow("time"));
+                    result += ("Lyon center: " + month + " / " + day + " "+ hour + ":00\n");
+                }
+            }
+            lcs.close();
+        }else{
+            result += "no current appointment for Lyon Center \n";
+        }
+        Cursor vcs = db.rawQuery("select * from villageGymAppointment where username = ?", new String[]{un});
+        if (vcs.getCount() > 0){
+            while (vcs.moveToNext()) {
+                String time = vcs.getString(0);
+                if(isCurrentAppt(currmonth,currday,currhour,time)) {
+                    Cursor cs = db.rawQuery("select * from lyonGym where appointment_id = ?", new String[]{time});
+                    cs.moveToFirst();
+                    String month = cs.getString(cs.getColumnIndexOrThrow("month"));
+                    String day = cs.getString(cs.getColumnIndexOrThrow("date"));
+                    String hour = cs.getString(cs.getColumnIndexOrThrow("time"));
+                    result += ("Village gym: " + month + " / " + day + " "+ hour + ":00\n");
+                }
+            }
+            vcs.close();
+        }else{
+            result += "no current appointment for village gym \n";
+        }
+
+        return result;
+    }
+
+    public boolean isCurrentAppt(int cm, int cd, int ch, String timeid){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cs = db.rawQuery("select month, date, time from lyonGym where appointment_id = ?", new String[]{timeid});
+        cs.moveToFirst();
+        if(cs.getCount() == 1) {
+            int month = Integer.parseInt(cs.getString(cs.getColumnIndexOrThrow("month")));
+            int day = Integer.parseInt(cs.getString(cs.getColumnIndexOrThrow("date")));
+            int hour = Integer.parseInt(cs.getString(cs.getColumnIndexOrThrow("time")));
+            if(month >= cm){
+                if(day > cd){
+                    return true;
+                }else if (day == cd){
+                    if(hour >= ch){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }
