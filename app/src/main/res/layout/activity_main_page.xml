@@ -62,7 +62,7 @@
     <TextView
         android:id="@+id/currentAppointmentTextView"
         android:layout_width="wrap_content"
-        android:layout_height="109dp"
+        android:layout_height="125dp"
         android:layout_below="@+id/welcomeusertextview"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -77,16 +77,16 @@
         android:id="@+id/waitlistview"
         android:layout_width="367dp"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/village_button"
+        android:layout_below="@+id/currentAppointmentTextView"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="236dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginBottom="370dp"
+        android:layout_marginBottom="80dp"
         android:background="#CDC2C2"
-        android:text="Waitlist"
+        android:text="@string/notification_list"
         android:textColor="#424242" />
 
     <Button

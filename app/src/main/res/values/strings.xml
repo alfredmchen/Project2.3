@@ -40,4 +40,5 @@
     <string name="current_appointments_list_scroll_view">hold list of appointment lists</string>
     <string name="past_appointments_list_scroll_view">hold list of appointment lists</string>
     <string name="summary_page_button_content_description">link to summary page</string>
+    <string name="notification_list">Notifications!!!!</string>>
 </resources>

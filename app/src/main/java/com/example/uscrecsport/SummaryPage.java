@@ -121,6 +121,9 @@ public class SummaryPage extends AppCompatActivity {
         TextView currentAppt = findViewById(R.id.currentAppointmentTextView);
         List<Appointment> resultCurrentAppt = db.getCurrentAppointments(username, currmonth, currday,currhour);
         String resultCurAppt = "Current Appointments: \n";
+        if(resultCurrentAppt.isEmpty()){
+            resultCurAppt += "No current appointments";
+        }
         for(int i = 0; i < resultCurrentAppt.size();i++){
             String temp = "";
             temp += (resultCurrentAppt.get(i).getRecCenter() + ": " + resultCurrentAppt.get(i).getMonth() + "/" + resultCurrentAppt.get(i).getDate() + " " + resultCurrentAppt.get(i).getTime() + ":00 \n");
