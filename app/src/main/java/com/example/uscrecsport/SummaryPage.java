@@ -28,8 +28,8 @@ public class SummaryPage extends AppCompatActivity {
         int currday = cal.get(Calendar.DAY_OF_MONTH);
         int currhour = cal.get(Calendar.HOUR_OF_DAY);
         DBHelper db = new DBHelper(this);
-        List<String> resultCurrentAppt = db.getCurrentAppointments(username,currmonth,currday,currhour);
-        List<String> resultPastAppt = db.getPastAppointments(username,currmonth,currday,currhour);
+        List<Appointment> resultCurrentAppt = db.getCurrentAppointments(username,currmonth,currday,currhour);
+        List<Appointment> resultPastAppt = db.getPastAppointments(username,currmonth,currday,currhour);
 
         LinearLayout current_appointment_list = (LinearLayout) findViewById(R.id.current_appointments_list);
         if(resultCurrentAppt.isEmpty()){
@@ -42,14 +42,16 @@ public class SummaryPage extends AppCompatActivity {
             ));
             current_appointment_list.addView(text);
         }else {
-            for (String appointment: resultCurrentAppt) {
+            for (Appointment appt: resultCurrentAppt) {
                 LinearLayout layout = new LinearLayout(this);
                 layout.setOrientation(LinearLayout.HORIZONTAL);
 
                 TextView text = new TextView(this);
                 Button button = new Button(this);
 
-                text.setText(appointment);
+                String temp = "";
+                temp += (appt.getRecCenter() + ": " + appt.getMonth() + "/" + appt.getDate() + " " + appt.getTime() + ":00 \n");
+                text.setText(temp);
                 text.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -88,10 +90,12 @@ public class SummaryPage extends AppCompatActivity {
             ));
             past_appointment_list.addView(text);
         }else {
-            for (String appointment: resultPastAppt) {
+            for (Appointment appt: resultPastAppt) {
                 TextView text = new TextView(this);
-
-                text.setText(appointment);
+                String temp = "";
+                temp += (appt.getRecCenter() + ": " + appt.getMonth() + "/" + appt.getDate() + " " + appt.getTime() + ":00 \n");
+                text.setText(temp);
+                text.setText(temp);
                 text.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.MATCH_PARENT,

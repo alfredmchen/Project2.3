@@ -53,10 +53,12 @@ public class BookingPage extends AppCompatActivity {
         String currhour = getIntent().getStringExtra("currhour");
 
         TextView currentAppt = findViewById(R.id.currentAppointmentTextView);
-        List<String> resultCurrentAppt = db.getCurrentAppointments(username,Integer.valueOf(currmonth), Integer.valueOf(currday),Integer.valueOf(currhour));
+        List<Appointment> resultCurrentAppt = db.getCurrentAppointments(username,Integer.valueOf(currmonth), Integer.valueOf(currday),Integer.valueOf(currhour));
         String resultCurAppt = "Current Appointments: \n";
         for(int i = 0; i < resultCurrentAppt.size();i++){
-            resultCurAppt += resultCurrentAppt.get(i);
+            String temp = "";
+            temp += (resultCurrentAppt.get(i).getRecCenter() + ": " + resultCurrentAppt.get(i).getMonth() + "/" + resultCurrentAppt.get(i).getDate() + " " + resultCurrentAppt.get(i).getTime() + ":00 \n");
+            resultCurAppt += temp;
         }
         currentAppt.setText(resultCurAppt);
 

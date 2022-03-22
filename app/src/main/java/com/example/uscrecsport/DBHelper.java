@@ -321,8 +321,8 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public List<String> getPastAppointments(String un, int currmonth, int currday, int currhour) {
-        List<String> result = new ArrayList<String>();
+    public List<Appointment> getPastAppointments(String un, int currmonth, int currday, int currhour) {
+        List<Appointment> result = new ArrayList<Appointment>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor lcs = db.rawQuery("select * from lyonGymAppointment where username = ?", new String[]{un});
         if (lcs.getCount() > 0){
@@ -334,11 +334,12 @@ public class DBHelper extends SQLiteOpenHelper {
                     String month = cs.getString(cs.getColumnIndexOrThrow("month"));
                     String day = cs.getString(cs.getColumnIndexOrThrow("date"));
                     String hour = cs.getString(cs.getColumnIndexOrThrow("time"));
-                    result.add("Lyon center: " + month + " / " + day + " "+ hour + ":00\n");
+                    Appointment temp = new Appointment("Lyon Center", time,month,day,hour);
+                    result.add(temp);
                 }
             }
+            lcs.close();
         }
-        lcs.close();
         Cursor vcs = db.rawQuery("select * from villageGymAppointment where username = ?", new String[]{un});
         if (vcs.getCount() > 0){
             while (vcs.moveToNext()) {
@@ -349,16 +350,16 @@ public class DBHelper extends SQLiteOpenHelper {
                     String month = cs.getString(cs.getColumnIndexOrThrow("month"));
                     String day = cs.getString(cs.getColumnIndexOrThrow("date"));
                     String hour = cs.getString(cs.getColumnIndexOrThrow("time"));
-                    result.add("Village gym: " + month + " / " + day + " "+ hour + ":00\n");
+                    Appointment temp = new Appointment("Village gym", time,month,day,hour);
+                    result.add(temp);
                 }
             }
+            vcs.close();
         }
-        vcs.close();
         return result;
     }
-
-    public List<String> getCurrentAppointments(String un, int currmonth, int currday, int currhour) {
-        List<String> result = new ArrayList<String>();
+    public List<Appointment> getCurrentAppointments(String un, int currmonth, int currday, int currhour) {
+        List<Appointment> result = new ArrayList<Appointment>();
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor lcs = db.rawQuery("select * from lyonGymAppointment where username = ?", new String[]{un});
         if (lcs.getCount() > 0){
@@ -370,7 +371,8 @@ public class DBHelper extends SQLiteOpenHelper {
                     String month = cs.getString(cs.getColumnIndexOrThrow("month"));
                     String day = cs.getString(cs.getColumnIndexOrThrow("date"));
                     String hour = cs.getString(cs.getColumnIndexOrThrow("time"));
-                    result.add("Lyon center: " + month + " / " + day + " "+ hour + ":00\n");
+                    Appointment temp = new Appointment("Lyon Center", time,month,day,hour);
+                    result.add(temp);
                 }
             }
             lcs.close();
@@ -385,7 +387,8 @@ public class DBHelper extends SQLiteOpenHelper {
                     String month = cs.getString(cs.getColumnIndexOrThrow("month"));
                     String day = cs.getString(cs.getColumnIndexOrThrow("date"));
                     String hour = cs.getString(cs.getColumnIndexOrThrow("time"));
-                    result.add("Village gym: " + month + " / " + day + " "+ hour + ":00\n");
+                    Appointment temp = new Appointment("Village gym", time,month,day,hour);
+                    result.add(temp);
                 }
             }
             vcs.close();

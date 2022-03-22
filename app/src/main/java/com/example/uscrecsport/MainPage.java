@@ -34,10 +34,12 @@ public class MainPage extends Activity {
 
 
 
-        List<String> resultCurrentAppt = db.getCurrentAppointments(username,currmonth,currday,currhour);
+        List<Appointment> resultCurrentAppt = db.getCurrentAppointments(username,currmonth,currday,currhour);
         String resultCurAppt = "Current Appointments: \n";
         for(int i = 0; i < resultCurrentAppt.size();i++){
-            resultCurAppt += resultCurrentAppt.get(i);
+            String temp = "";
+            temp += (resultCurrentAppt.get(i).getRecCenter() + ": " + resultCurrentAppt.get(i).getMonth() + "/" + resultCurrentAppt.get(i).getDate() + " " + resultCurrentAppt.get(i).getTime() + ":00 \n");
+            resultCurAppt += temp;
         }
         currentAppt.setText(resultCurAppt);
         String welcometxt = "Welcome " + username + "\n" + Integer.toString(currmonth) + "/" + Integer.toString(currday) + " " + Integer.toString(currhour);
