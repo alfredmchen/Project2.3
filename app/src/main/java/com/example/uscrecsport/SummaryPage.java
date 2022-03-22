@@ -2,9 +2,14 @@ package com.example.uscrecsport;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.List;
@@ -17,8 +22,6 @@ public class SummaryPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary_page);
 
-        TextView currappt = findViewById(R.id.currentApptTextviewSummaryPage);
-        TextView pastappt = findViewById(R.id.pastApptTextviewSummaryPage);
         String username = getIntent().getStringExtra("username");
         Calendar cal = Calendar.getInstance();
         int currmonth = cal.get(Calendar.MONTH) + 1;
@@ -27,17 +30,75 @@ public class SummaryPage extends AppCompatActivity {
         DBHelper db = new DBHelper(this);
         List<String> resultCurrentAppt = db.getCurrentAppointments(username,currmonth,currday,currhour);
         List<String> resultPastAppt = db.getPastAppointments(username,currmonth,currday,currhour);
-        String resultCurAppt = "Current Appointments: \n";
-        String resultPAppt = "Past Appointments: \n";
-        for(int i = 0; i < resultCurrentAppt.size();i++){
-            resultCurAppt += resultCurrentAppt.get(i);
+
+        LinearLayout current_appointment_list = (LinearLayout) findViewById(R.id.current_appointments_list);
+        if(resultCurrentAppt.isEmpty()){
+            TextView text = new TextView(this);
+            text.setText("No Current Appointment");
+            text.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    1.0f
+            ));
+            current_appointment_list.addView(text);
+        }else {
+            for (String appointment: resultCurrentAppt) {
+                LinearLayout layout = new LinearLayout(this);
+                layout.setOrientation(LinearLayout.HORIZONTAL);
+
+                TextView text = new TextView(this);
+                Button button = new Button(this);
+
+                text.setText(appointment);
+                text.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        0.1f
+                ));
+                button.setText("X");
+                button.setBackgroundColor(Color.RED);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        current_appointment_list.removeView(layout);
+                        //delete appointment in db and send notifications if required
+
+                    }
+                });
+                button.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        1.0f
+                ));
+                layout.addView(text);
+                layout.addView(button);
+
+                current_appointment_list.addView(layout);
+            }
         }
-        for(int i = 0; i < resultPastAppt.size();i++){
-            resultPAppt += resultPastAppt.get(i);
+
+        LinearLayout past_appointment_list = (LinearLayout) findViewById(R.id.past_appointments_list);
+        if(resultCurrentAppt.isEmpty()){
+            TextView text = new TextView(this);
+            text.setText("No Past Appointment");
+            text.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    1.0f
+            ));
+            past_appointment_list.addView(text);
+        }else {
+            for (String appointment: resultPastAppt) {
+                TextView text = new TextView(this);
+
+                text.setText(appointment);
+                text.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        1.0f
+                ));
+                past_appointment_list.addView(text);
+            }
         }
-        currappt.setText(resultCurAppt);
-        pastappt.setText(resultPAppt);
-        currappt.setMovementMethod(new ScrollingMovementMethod());
-        pastappt.setMovementMethod(new ScrollingMovementMethod());
     }
 }
