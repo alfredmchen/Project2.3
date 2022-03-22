@@ -2,6 +2,7 @@ package com.example.uscrecsport;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -64,7 +65,8 @@ public class SummaryPage extends AppCompatActivity {
                     public void onClick(View view) {
                         current_appointment_list.removeView(layout);
                         //delete appointment in db and send notifications if required
-
+                        db.cancelAppointment(appt.getRecCenter(), db.getAppointmentId(appt.getRecCenter(), appt.getMonth(),
+                                appt.getDate(), appt.getTime()), username);
                     }
                 });
                 button.setLayoutParams(new LinearLayout.LayoutParams(
@@ -104,5 +106,29 @@ public class SummaryPage extends AppCompatActivity {
                 past_appointment_list.addView(text);
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DBHelper db = new DBHelper(this);
+
+        String username = getIntent().getStringExtra("username");
+        Calendar cal = Calendar.getInstance();
+        int currmonth = cal.get(Calendar.MONTH) + 1;
+        int currday = cal.get(Calendar.DAY_OF_MONTH);
+        int currhour = cal.get(Calendar.HOUR_OF_DAY);
+
+        TextView currentAppt = findViewById(R.id.currentAppointmentTextView);
+        List<Appointment> resultCurrentAppt = db.getCurrentAppointments(username, currmonth, currday,currhour);
+        String resultCurAppt = "Current Appointments: \n";
+        for(int i = 0; i < resultCurrentAppt.size();i++){
+            String temp = "";
+            temp += (resultCurrentAppt.get(i).getRecCenter() + ": " + resultCurrentAppt.get(i).getMonth() + "/" + resultCurrentAppt.get(i).getDate() + " " + resultCurrentAppt.get(i).getTime() + ":00 \n");
+            resultCurAppt += temp;
+        }
+        currentAppt.setText(resultCurAppt);
+
+        Intent intent = new Intent(SummaryPage.this, MainPage.class);
+        startActivity(intent);
     }
 }

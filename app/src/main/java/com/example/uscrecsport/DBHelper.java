@@ -105,20 +105,23 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "";
         String getTimeString = "";
-        if(gym.equals("village")){
+        if(gym.equals("Village gym")){
             queryString = "DELETE FROM villageGymAppointment " +
-                    "WHERE appointment_id = " + appointment_id + " and username = " + username;
-            getTimeString = "SELECT * FROM villageGym WHERE appointment_id = " + appointment_id;
+                    "WHERE appointment_id =" + appointment_id + " and username = '" + username + "'";
+            getTimeString = "SELECT * FROM villageGym WHERE appointment_id =" + appointment_id;
         }else{
             queryString = "DELETE FROM lyonGymAppointment " +
-                    "WHERE appointment_id = " + appointment_id + " and username = " + username;
-            getTimeString = "SELECT * FROM lyonGym WHERE appointment_id = " + appointment_id;
+                    "WHERE appointment_id =" + appointment_id + " and username = '" + username + "'";
+            getTimeString = "SELECT * FROM lyonGym WHERE appointment_id =" + appointment_id;
         }
 
         Cursor getTime = db.rawQuery(getTimeString, null);
         boolean was_unavailable = false;
-        if(!checkAppointmentAvailability(gym, getTime.getString(1), getTime.getString(2), getTime.getString(3))) {
-            was_unavailable = true;
+
+        if(getTime.moveToFirst()) {
+            if (!checkAppointmentAvailability(gym, getTime.getString(1), getTime.getString(2), getTime.getString(3))) {
+                was_unavailable = true;
+            }
         }
 
         Cursor cursor = db.rawQuery(queryString, null);
@@ -156,9 +159,9 @@ public class DBHelper extends SQLiteOpenHelper {
         String queryString = "";
 
         if(gym.equals("village")){
-            queryString = "DELETE FROM villageGymWaitlist WHERE appointment_id = " + appointment_id;
+            queryString = "DELETE FROM villageGymWaitlist WHERE appointment_id =" + appointment_id;
         }else{
-            queryString = "DELETE FROM lyonGymWaitlist WHERE appointment_id = " + appointment_id;;
+            queryString = "DELETE FROM lyonGymWaitlist WHERE appointment_id =" + appointment_id;;
         }
 
         Cursor cursor = db.rawQuery(queryString, null);
