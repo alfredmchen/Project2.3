@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class BookingPage extends AppCompatActivity {
     CalendarView cv;
 
@@ -51,9 +53,12 @@ public class BookingPage extends AppCompatActivity {
         String currhour = getIntent().getStringExtra("currhour");
 
         TextView currentAppt = findViewById(R.id.currentAppointmentTextView);
-        String resultCurrentAppt = db.getCurrentAppointments(username,Integer.valueOf(currmonth),
-                Integer.valueOf(currday),Integer.valueOf(currhour));
-        currentAppt.setText(resultCurrentAppt);
+        List<String> resultCurrentAppt = db.getCurrentAppointments(username,Integer.valueOf(currmonth), Integer.valueOf(currday),Integer.valueOf(currhour));
+        String resultCurAppt = "Current Appointments: \n";
+        for(int i = 0; i < resultCurrentAppt.size();i++){
+            resultCurAppt += resultCurrentAppt.get(i);
+        }
+        currentAppt.setText(resultCurAppt);
 
         Intent intent = new Intent(BookingPage.this, MainPage.class);
         startActivity(intent);

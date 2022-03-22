@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/USCRECSport.iml" filepath="$PROJECT_DIR$/.idea/modules/USCRECSport.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/USCRECSport.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/USCRECSport.app.iml" />
-    </modules>
-  </component>
-</project>

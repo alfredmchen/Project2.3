@@ -3,9 +3,11 @@ package com.example.uscrecsport;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class SummaryPage extends AppCompatActivity {
 
@@ -23,9 +25,19 @@ public class SummaryPage extends AppCompatActivity {
         int currday = cal.get(Calendar.DAY_OF_MONTH);
         int currhour = cal.get(Calendar.HOUR_OF_DAY);
         DBHelper db = new DBHelper(this);
-        String resultCurrentAppt = db.getCurrentAppointments(username,currmonth,currday,currhour);
-        String resultPastAppt = db.getPastAppointments(username,currmonth,currday,currhour);
-        currappt.setText(resultCurrentAppt);
-        pastappt.setText(resultPastAppt);
+        List<String> resultCurrentAppt = db.getCurrentAppointments(username,currmonth,currday,currhour);
+        List<String> resultPastAppt = db.getPastAppointments(username,currmonth,currday,currhour);
+        String resultCurAppt = "Current Appointments: \n";
+        String resultPAppt = "Past Appointments: \n";
+        for(int i = 0; i < resultCurrentAppt.size();i++){
+            resultCurAppt += resultCurrentAppt.get(i);
+        }
+        for(int i = 0; i < resultPastAppt.size();i++){
+            resultPAppt += resultPastAppt.get(i);
+        }
+        currappt.setText(resultCurAppt);
+        pastappt.setText(resultPAppt);
+        currappt.setMovementMethod(new ScrollingMovementMethod());
+        pastappt.setMovementMethod(new ScrollingMovementMethod());
     }
 }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class MainPage extends Activity {
 
@@ -30,8 +31,12 @@ public class MainPage extends Activity {
 
 
 
-        String resultCurrentAppt = db.getCurrentAppointments(username,currmonth,currday,currhour);
-        currentAppt.setText(resultCurrentAppt);
+        List<String> resultCurrentAppt = db.getCurrentAppointments(username,currmonth,currday,currhour);
+        String resultCurAppt = "Current Appointments: \n";
+        for(int i = 0; i < resultCurrentAppt.size();i++){
+            resultCurAppt += resultCurrentAppt.get(i);
+        }
+        currentAppt.setText(resultCurAppt);
         String welcometxt = "Welcome " + username + "\n" + Integer.toString(currmonth) + "/" + Integer.toString(currday) + " " + Integer.toString(currhour);
         welcome.setText(welcometxt);
         currentAppt.setMovementMethod(new ScrollingMovementMethod());
