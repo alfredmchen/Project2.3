@@ -115,11 +115,16 @@ public class DBHelper extends SQLiteOpenHelper {
             getTimeString = "SELECT * FROM lyonGym WHERE appointment_id = " + appointment_id;
         }
 
+        Cursor getTime = db.rawQuery(getTimeString, null);
+        boolean was_unavailable = false;
+        if(!checkAppointmentAvailability(gym, getTime.getString(1), getTime.getString(2), getTime.getString(3))) {
+            was_unavailable = true;
+        }
+
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()){
-            Cursor getTime = db.rawQuery(getTimeString, null);
-            deleteWaitlist(gym, appointment_id);
-            if(checkAppointmentAvailability(gym, getTime.getString(1), getTime.getString(2), getTime.getString(3))) {
+            if(was_unavailable && checkAppointmentAvailability(gym, getTime.getString(1), getTime.getString(2), getTime.getString(3))) {
+                deleteWaitlist(gym, appointment_id);
                 moveWaitlistToNotificationList(gym, appointment_id);
             }
             return true;
