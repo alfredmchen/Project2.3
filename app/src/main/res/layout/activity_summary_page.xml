@@ -11,9 +11,10 @@
         android:layout_width="236dp"
         android:layout_height="69dp"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="91dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="83dp"
         android:layout_marginBottom="649dp"
         android:gravity="center"
@@ -27,16 +28,17 @@
         app:layout_constraintVertical_bias="0.039" />
 
     <LinearLayout
+        android:id="@+id/current_appointments_linear_layout"
         android:layout_width="wrap_content"
-        android:layout_height="254dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/summary_page_title"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="37dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="-620dp"
         android:layout_marginEnd="27dp"
-        android:layout_marginBottom="373dp"
+        android:layout_marginBottom="350dp"
         android:background="#CDC2C2"
         android:orientation="vertical">
 
@@ -51,8 +53,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.168"
-            />
+            app:layout_constraintVertical_bias="0.168" />
 
         <ScrollView
             android:id="@+id/current_appointments_list_scroll_view"
@@ -69,16 +70,17 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/past_appointments_linear_layout"
         android:layout_width="wrap_content"
-        android:layout_height="249dp"
+        android:layout_height="248dp"
+        android:layout_below="@id/current_appointments_linear_layout"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="37dp"
-        android:layout_marginTop="396dp"
+        android:layout_marginTop="-300dp"
         android:layout_marginEnd="27dp"
-        android:layout_marginBottom="86dp"
+        android:layout_marginBottom="51dp"
         android:background="#CDC2C2"
         android:orientation="vertical">
 
