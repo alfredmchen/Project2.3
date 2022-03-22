@@ -27,7 +27,7 @@
         android:contentDescription="@string/lyon_button"
         android:text="@string/lyon_button"
         android:textAllCaps="false"
-        android:textSize="8sp" />
+        android:textSize="12sp" />
 
     <Button
         android:id="@+id/village_button"
@@ -41,7 +41,7 @@
         android:contentDescription="@string/village_button"
         android:text="@string/village_button"
         android:textAllCaps="false"
-        android:textSize="8sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/welcomeusertextview"
@@ -56,7 +56,6 @@
         android:layout_marginEnd="105dp"
         android:layout_marginBottom="670dp"
         android:gravity="center"
-        android:text="TextView"
         android:textSize="25sp"
         android:textStyle="bold" />
 
@@ -73,7 +72,8 @@
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="503dp"
         android:background="#CDC2C2"
-        android:text="Current Appointments" />
+        android:text="@string/current_appointments"
+        android:textColor="#424242" />
 
     <TextView
         android:id="@+id/waitlistview"
@@ -88,7 +88,8 @@
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="366dp"
         android:background="#CDC2C2"
-        android:text="Waitlist" />
+        android:text="Waitlist"
+        android:textColor="#424242" />
 
     <Button
         android:id="@+id/summarypagebutton"
@@ -102,7 +103,8 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="504dp"
-        android:background="?android:attr/selectableItemBackground" />
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/summary_page_button_content_description" />
 
 
 </RelativeLayout>
