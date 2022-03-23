@@ -47,7 +47,7 @@ public class MainPage extends Activity {
         }
         currentAppt.setText(resultCurAppt);
         currentAppt.setMovementMethod(new ScrollingMovementMethod());
-        String welcometxt = "Welcome " + username + "\n" + Integer.toString(currmonth) + "/" + Integer.toString(currday) + " " + Integer.toString(currhour);
+        String welcometxt = "Welcome " + username + "\n" + Integer.toString(currmonth) + "/" + Integer.toString(currday) + " " + Integer.toString(currhour) + ":00";
         welcome.setText(welcometxt);
 
 
@@ -112,5 +112,9 @@ public class MainPage extends Activity {
         }
         currentAppt.setText(resultCurAppt);
         currentAppt.setMovementMethod(new ScrollingMovementMethod());
+
+        TextView welcome = (TextView)findViewById(R.id.welcomeusertextview);
+        String welcometxt = "Welcome " + username + "\n" + Integer.toString(currmonth) + "/" + Integer.toString(currday) + " " + Integer.toString(currhour) + ":00";
+        welcome.setText(welcometxt);
     }
 }
