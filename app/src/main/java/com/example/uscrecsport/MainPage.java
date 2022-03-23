@@ -8,6 +8,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +25,8 @@ public class MainPage extends Activity {
         Button lyon = findViewById(R.id.lyon_button);
         Button village = findViewById(R.id.village_button);
         Button summaryPage = findViewById(R.id.summarypagebutton);
-        TextView welcome = findViewById(R.id.welcomeusertextview);
-        TextView currentAppt = findViewById(R.id.currentAppointmentTextView);
+        TextView welcome = (TextView)findViewById(R.id.welcomeusertextview);
+        TextView currentAppt = (TextView)findViewById(R.id.currentAppointmentTextView);
         DBHelper db = new DBHelper(this);
         Calendar cal = Calendar.getInstance();
         int currmonth = cal.get(Calendar.MONTH) + 1;
@@ -45,9 +46,10 @@ public class MainPage extends Activity {
             resultCurAppt += temp;
         }
         currentAppt.setText(resultCurAppt);
+        currentAppt.setMovementMethod(new ScrollingMovementMethod());
         String welcometxt = "Welcome " + username + "\n" + Integer.toString(currmonth) + "/" + Integer.toString(currday) + " " + Integer.toString(currhour);
         welcome.setText(welcometxt);
-        currentAppt.setMovementMethod(new ScrollingMovementMethod());
+
 
 
         lyon.setOnClickListener(new View.OnClickListener() {
@@ -84,5 +86,31 @@ public class MainPage extends Activity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        DBHelper db = new DBHelper(this);
+
+        String username = getIntent().getStringExtra("username");
+        Calendar cal = Calendar.getInstance();
+        int currmonth = cal.get(Calendar.MONTH) + 1;
+        int currday = cal.get(Calendar.DAY_OF_MONTH);
+        int currhour = cal.get(Calendar.HOUR_OF_DAY);
+
+        TextView currentAppt = (TextView)findViewById(R.id.currentAppointmentTextView);
+        List<Appointment> resultCurrentAppt = db.getCurrentAppointments(username, currmonth, currday,currhour);
+        String resultCurAppt = "Current Appointments: \n";
+        if(resultCurrentAppt.isEmpty()){
+            resultCurAppt += "No current appointments";
+        }
+        for(int i = 0; i < resultCurrentAppt.size();i++){
+            String temp = "";
+            temp += (resultCurrentAppt.get(i).getRecCenter() + ": " + resultCurrentAppt.get(i).getMonth() + "/" + resultCurrentAppt.get(i).getDate() + " " + resultCurrentAppt.get(i).getTime() + ":00 \n");
+            resultCurAppt += temp;
+        }
+        currentAppt.setText(resultCurAppt);
+        currentAppt.setMovementMethod(new ScrollingMovementMethod());
     }
 }

@@ -108,28 +108,30 @@ public class DBHelper extends SQLiteOpenHelper {
         if(gym.equals("Village gym")){
             queryString = "DELETE FROM villageGymAppointment " +
                     "WHERE appointment_id =" + appointment_id + " and username = '" + username + "'";
-            getTimeString = "SELECT * FROM villageGym WHERE appointment_id =" + appointment_id;
+//            getTimeString = "SELECT * FROM villageGym WHERE appointment_id =" + appointment_id;
         }else{
             queryString = "DELETE FROM lyonGymAppointment " +
                     "WHERE appointment_id =" + appointment_id + " and username = '" + username + "'";
-            getTimeString = "SELECT * FROM lyonGym WHERE appointment_id =" + appointment_id;
+//            getTimeString = "SELECT * FROM lyonGym WHERE appointment_id =" + appointment_id;
         }
 
-        Cursor getTime = db.rawQuery(getTimeString, null);
-        boolean was_unavailable = false;
-
-        if(getTime.moveToFirst()) {
-            if (!checkAppointmentAvailability(gym, getTime.getString(1), getTime.getString(2), getTime.getString(3))) {
-                was_unavailable = true;
-            }
-        }
+//        Cursor getTime = db.rawQuery(getTimeString, null);
+//        boolean was_unavailable = false;
+//
+//        if(getTime.moveToFirst()) {
+//            if (!checkAppointmentAvailability(gym, getTime.getString(1), getTime.getString(2), getTime.getString(3))) {
+//                was_unavailable = true;
+//            }
+//        }
 
         Cursor cursor = db.rawQuery(queryString, null);
+        moveWaitlistToNotificationList(gym, appointment_id);
+        deleteWaitlist(gym, appointment_id);
         if(cursor.moveToFirst()){
-            if(was_unavailable && checkAppointmentAvailability(gym, getTime.getString(1), getTime.getString(2), getTime.getString(3))) {
-                deleteWaitlist(gym, appointment_id);
-                moveWaitlistToNotificationList(gym, appointment_id);
-            }
+//            if(was_unavailable && checkAppointmentAvailability(gym, getTime.getString(1), getTime.getString(2), getTime.getString(3))) {
+//                moveWaitlistToNotificationList(gym, appointment_id);
+//                deleteWaitlist(gym, appointment_id);
+//            }
             return true;
         }else{
             return false;
@@ -139,7 +141,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void moveWaitlistToNotificationList(String gym, Integer appointment_id){
         SQLiteDatabase db = this.getReadableDatabase();
         String queryString = "";
-        if(gym.equals("village")){
+        if(gym.equals("Village gym")){
             queryString = "SELECT * FROM villageGymWaitlist WHERE appointment_id = " + appointment_id;
         }else{
             queryString = "SELECT * FROM lyonGymWaitlist WHERE appointment_id = " + appointment_id;;
@@ -147,8 +149,14 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(queryString, null);
 
         if(cursor.moveToFirst()){
+            String input_gym = "";
             do{
-                insertNotification(gym, appointment_id, cursor.getString(1));
+                if(gym.equals("Village gym")){
+                    input_gym = "village";
+                }else {
+                    input_gym = "lyon";
+                }
+                insertNotification(input_gym, appointment_id, cursor.getString(1));
             }while(cursor.moveToNext());
         }
 
@@ -158,7 +166,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "";
 
-        if(gym.equals("village")){
+        if(gym.equals("Village gym")){
             queryString = "DELETE FROM villageGymWaitlist WHERE appointment_id =" + appointment_id;
         }else{
             queryString = "DELETE FROM lyonGymWaitlist WHERE appointment_id =" + appointment_id;;

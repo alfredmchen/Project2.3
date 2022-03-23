@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -43,29 +45,4 @@ public class BookingPage extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        DBHelper db = new DBHelper(this);
-
-        String username = getIntent().getStringExtra("username");
-        String currmonth = getIntent().getStringExtra("currmonth");
-        String currday = getIntent().getStringExtra("currday");
-        String currhour = getIntent().getStringExtra("currhour");
-
-        TextView currentAppt = findViewById(R.id.currentAppointmentTextView);
-        List<Appointment> resultCurrentAppt = db.getCurrentAppointments(username,Integer.valueOf(currmonth), Integer.valueOf(currday),Integer.valueOf(currhour));
-        String resultCurAppt = "Current Appointments: \n";
-        if(resultCurrentAppt.isEmpty()){
-            resultCurAppt += "No current appointments";
-        }
-        for(int i = 0; i < resultCurrentAppt.size();i++){
-            String temp = "";
-            temp += (resultCurrentAppt.get(i).getRecCenter() + ": " + resultCurrentAppt.get(i).getMonth() + "/" + resultCurrentAppt.get(i).getDate() + " " + resultCurrentAppt.get(i).getTime() + ":00 \n");
-            resultCurAppt += temp;
-        }
-        currentAppt.setText(resultCurAppt);
-
-        Intent intent = new Intent(BookingPage.this, MainPage.class);
-        startActivity(intent);
-    }
 }

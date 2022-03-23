@@ -9,6 +9,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,7 +17,6 @@ import java.util.Calendar;
 import java.util.List;
 
 public class SummaryPage extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,30 +108,4 @@ public class SummaryPage extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        DBHelper db = new DBHelper(this);
-
-        String username = getIntent().getStringExtra("username");
-        Calendar cal = Calendar.getInstance();
-        int currmonth = cal.get(Calendar.MONTH) + 1;
-        int currday = cal.get(Calendar.DAY_OF_MONTH);
-        int currhour = cal.get(Calendar.HOUR_OF_DAY);
-
-        TextView currentAppt = findViewById(R.id.currentAppointmentTextView);
-        List<Appointment> resultCurrentAppt = db.getCurrentAppointments(username, currmonth, currday,currhour);
-        String resultCurAppt = "Current Appointments: \n";
-        if(resultCurrentAppt.isEmpty()){
-            resultCurAppt += "No current appointments";
-        }
-        for(int i = 0; i < resultCurrentAppt.size();i++){
-            String temp = "";
-            temp += (resultCurrentAppt.get(i).getRecCenter() + ": " + resultCurrentAppt.get(i).getMonth() + "/" + resultCurrentAppt.get(i).getDate() + " " + resultCurrentAppt.get(i).getTime() + ":00 \n");
-            resultCurAppt += temp;
-        }
-        currentAppt.setText(resultCurAppt);
-
-        Intent intent = new Intent(SummaryPage.this, MainPage.class);
-        startActivity(intent);
-    }
 }
