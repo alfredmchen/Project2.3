@@ -40,12 +40,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
         for(int i=1; i < 32; i++) {
             for (int j = 8; j < 24; j+=2) {
-                db.execSQL("insert into villageGym(month, date, time) values(3," + i + ", " + j + ")");
+                for(int k = 3; k <6; k++){
+                    db.execSQL("insert into villageGym(month, date, time) values(" + k  +  "," + i + ", " + j + ")");
+                }
             }
         }
         for(int i=1; i < 32; i++) {
             for (int j = 8; j < 24; j+=2) {
-                db.execSQL("insert into lyonGym(month, date, time) values(3," + i + ", " + j + ")");
+                for(int k = 3; k <6; k++) {
+                    db.execSQL("insert into lyonGym(month, date, time) values(" + k + "," + i + ", " + j + ")");
+                }
             }
         }
     }
