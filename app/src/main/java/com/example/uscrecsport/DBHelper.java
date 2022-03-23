@@ -426,4 +426,26 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return false;
     }
+    public List<Appointment> getNotification(String un){
+        List<Appointment> result = new ArrayList<Appointment>();
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cs = db.rawQuery("select appointment_id, gym from notificationList where user = ?", new String[]{un});
+        if(cs.getCount() > 0){
+            while(cs.moveToNext()){
+                String apptid = cs.getString(cs.getColumnIndexOrThrow("appointment_id"));
+                String rec = cs.getString(cs.getColumnIndexOrThrow("gym"));
+                Cursor idcs = db.rawQuery("select month, date, time from lyonGym where appointment_id = ?", new String[]{apptid});
+                if(idcs.getCount() == 1 && idcs != null && idcs.moveToFirst()) {
+                    String month = idcs.getString(idcs.getColumnIndexOrThrow("month"));
+                    String day = idcs.getString(idcs.getColumnIndexOrThrow("date"));
+                    String hour = idcs.getString(idcs.getColumnIndexOrThrow("time"));
+                    Appointment temp = new Appointment(rec, apptid, month, day, hour);
+                    result.add(temp);
+                }
+            }
+        }
+        db.delete("notificationList","user=?",new String[]{un});
+        cs.close();
+        return result;
+    }
 }

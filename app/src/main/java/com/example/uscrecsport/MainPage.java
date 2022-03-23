@@ -113,6 +113,17 @@ public class MainPage extends Activity {
         currentAppt.setText(resultCurAppt);
         currentAppt.setMovementMethod(new ScrollingMovementMethod());
 
+        TextView notification = (TextView)findViewById(R.id.waitlistview);
+        List<Appointment> notilist = db.getNotification(username);
+        String resultnotification = "Notification \n";
+        for(Appointment a : notilist){
+            String temp = "";
+            temp += (a.getRecCenter() + ": " + a.getMonth() + "/" + a.getDate() + " " + a.getTime()+ ":00 is avaliable now");
+            resultnotification += temp;
+        }
+        notification.setText(resultnotification);
+        notification.setMovementMethod(new ScrollingMovementMethod());
+
         TextView welcome = (TextView)findViewById(R.id.welcomeusertextview);
         String welcometxt = "Welcome " + username + "\n" + Integer.toString(currmonth) + "/" + Integer.toString(currday) + " " + Integer.toString(currhour) + ":00";
         welcome.setText(welcometxt);
