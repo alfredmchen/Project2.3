@@ -16,6 +16,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         EditText un = (EditText) findViewById(R.id.regisusername);
         EditText pw = (EditText) findViewById(R.id.regispassword);
+        EditText stuID = (EditText) findViewById(R.id.regisstudentid);
         Button regisButton = (Button) findViewById(R.id.registerbutton);
         Button backtoSignInButton = (Button) findViewById(R.id.backtosigninbtn);
         DBHelper db = new DBHelper(this);
@@ -25,13 +26,14 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = un.getText().toString();
                 String password = pw.getText().toString();
-                if(username.equals("") || password.equals("")){
+                String studentID = stuID.getText().toString();
+                if(username.equals("") || password.equals("") || studentID.equals("")){
                     Toast.makeText(RegisterActivity.this, "Enter all fields", Toast.LENGTH_SHORT).show();
                 }else{
                     if(db.checkusername(username)){
                         Toast.makeText(RegisterActivity.this, "Username already exist", Toast.LENGTH_SHORT).show();
                     }else{
-                        boolean last = db.insertUser(username,password);
+                        boolean last = db.insertUser(username,password,studentID);
                         if(last){
                             Toast.makeText(RegisterActivity.this, "successfully registered", Toast.LENGTH_SHORT).show();
                         }else{

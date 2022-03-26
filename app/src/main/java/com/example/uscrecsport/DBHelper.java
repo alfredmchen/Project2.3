@@ -19,7 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table users(username TEXT PRIMARY KEY, password TEXT NOT NULL, picture_url TEXT)");
+        db.execSQL("create table users(username TEXT PRIMARY KEY, password TEXT NOT NULL, picture_url TEXT, student_ID TEXT NOT NULL)");
 
         db.execSQL("create table villageGym(appointment_id INTEGER PRIMARY KEY AUTOINCREMENT, month TEXT NOT NULL, " +
                 "date TEXT NOT NULL, time TEXT NOT NULL)");
@@ -55,11 +55,12 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("drop Table if exists users");
     }
 
-    public boolean insertUser(String un, String pw){
+    public boolean insertUser(String un, String pw, String id){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("username", un);
         cv.put("password", pw);
+        cv.put("student_id",id);
         boolean userExist = checkusername(un);
         if(userExist){
             return false;
@@ -136,6 +137,21 @@ public class DBHelper extends SQLiteOpenHelper {
         }else{
             return false;
         }
+    }
+
+    public String getImageUrl(String un){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String imgurl = "";
+        Cursor cs = db.rawQuery("select * from users where username = ?", new String[]{un});
+        if(cs.getCount() == 1 && cs.moveToFirst()){
+            imgurl = cs.getString(cs.getColumnIndexOrThrow("picture_url"));
+        }
+        return imgurl;
+    }
+
+    public void setImageUrl(String un,String url){
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("UPDATE users set picture_url = ? where username = ?", new String []{url,un});
     }
 
     public void moveWaitlistToNotificationList(String gym, Integer appointment_id){

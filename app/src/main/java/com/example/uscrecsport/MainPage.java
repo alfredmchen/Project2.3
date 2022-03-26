@@ -1,17 +1,31 @@
 package com.example.uscrecsport;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.text.InputType;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,6 +39,8 @@ public class MainPage extends Activity {
         Button lyon = findViewById(R.id.lyon_button);
         Button village = findViewById(R.id.village_button);
         Button summaryPage = findViewById(R.id.summarypagebutton);
+
+
         TextView welcome = (TextView)findViewById(R.id.welcomeusertextview);
         TextView currentAppt = (TextView)findViewById(R.id.currentAppointmentTextView);
         DBHelper db = new DBHelper(this);
@@ -92,6 +108,8 @@ public class MainPage extends Activity {
     public void onResume() {
         super.onResume();
         DBHelper db = new DBHelper(this);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         String username = getIntent().getStringExtra("username");
         Calendar cal = Calendar.getInstance();
@@ -127,5 +145,36 @@ public class MainPage extends Activity {
         TextView welcome = (TextView)findViewById(R.id.welcomeusertextview);
         String welcometxt = "Welcome " + username + "\n" + Integer.toString(currmonth) + "/" + Integer.toString(currday) + " " + Integer.toString(currhour) + ":00";
         welcome.setText(welcometxt);
+
+        Button setprofilepic = findViewById(R.id.setpicbtn);
+        ImageView pfp = findViewById(R.id.profilepic);
+        String urltemp = db.getImageUrl(username);
+        if(urltemp == null){
+            pfp.setImageResource(R.drawable.avatar);
+            Toast.makeText(MainPage.this, "failed", Toast.LENGTH_SHORT).show();
+        }else{
+            Glide.with(this).load(urltemp).into(pfp);
+        }
+        setprofilepic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dialog  = new AlertDialog.Builder(MainPage.this);
+                dialog.setTitle("Enter picture url: ");
+                final EditText picurl = new EditText(MainPage.this);
+                picurl.setInputType(InputType.TYPE_CLASS_TEXT);
+                dialog.setView(picurl);
+
+                dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String picurltemp = picurl.getText().toString();
+                        db.setImageUrl(username,picurltemp);
+                    }
+                });
+                dialog.show();
+            }
+        });
+
+
     }
 }
