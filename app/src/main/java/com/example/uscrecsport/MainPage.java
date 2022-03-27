@@ -151,7 +151,6 @@ public class MainPage extends Activity {
         String urltemp = db.getImageUrl(username);
         if(urltemp == null){
             pfp.setImageResource(R.drawable.avatar);
-            Toast.makeText(MainPage.this, "failed", Toast.LENGTH_SHORT).show();
         }else{
             Glide.with(this).load(urltemp).into(pfp);
         }
@@ -168,7 +167,9 @@ public class MainPage extends Activity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         String picurltemp = picurl.getText().toString();
-                        db.setImageUrl(username,picurltemp);
+                        if(!picurltemp.isEmpty()) {
+                            db.setImageUrl(username, picurltemp);
+                        }
                     }
                 });
                 dialog.show();
