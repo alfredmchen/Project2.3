@@ -53,7 +53,7 @@ Setting profile picture:
 ```
 - Users are given a preset avatar for their profile picture after account creation.
 - In order to set new profile picture, click the profile picture which prompts users to enter an URL.
-	Strongly recommended: Upload selected picture to this website (https://imgbb.com) to host images and copy image URL for setting profile picture.
+**Strongly recommended: Upload selected picture to this website (https://imgbb.com) to host images and copy image URL for setting profile picture.**
 - Profile picture will be updated/refreshed after user leaves the main page and come back at a later time.
 ```
 
