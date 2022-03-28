@@ -2,7 +2,7 @@
 
 ### General Info:
 
-In order to run the App, please run it using the **Pixel 3 Nougat API 24 ** AVD.
+In order to run the App, please run it using the **Pixel 3 Nougat API 24** AVD.
 
 In this implementation iteration, we have implemented these main features:
 
