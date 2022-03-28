@@ -154,6 +154,7 @@ public class MainPage extends Activity {
         }else{
             Glide.with(this).load(urltemp).into(pfp);
         }
+        boolean success = false;
         setprofilepic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,6 +176,7 @@ public class MainPage extends Activity {
                 dialog.show();
             }
         });
+
 
 
     }
