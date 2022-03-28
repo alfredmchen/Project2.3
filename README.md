@@ -1,5 +1,6 @@
 # USCRECApp
 
+### General Info
 In order to run the App, please run it using Pixel 3 Noughat Version.
 
 In this implementation iteration, we have implemented these main features:
@@ -18,6 +19,7 @@ Some additional features that we have implemented:
 - Allow user to set profile pic via image URL on the main page
 ```
 
+### Features
 
 Sign In/ Register:
 
