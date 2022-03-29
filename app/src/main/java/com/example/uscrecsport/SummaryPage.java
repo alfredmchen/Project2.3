@@ -18,7 +18,7 @@ import java.util.List;
 
 public class SummaryPage extends AppCompatActivity {
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary_page);
@@ -82,7 +82,7 @@ public class SummaryPage extends AppCompatActivity {
         }
 
         LinearLayout past_appointment_list = (LinearLayout) findViewById(R.id.past_appointments_list);
-        if(resultCurrentAppt.isEmpty()){
+        if(resultPastAppt.isEmpty()){
             TextView text = new TextView(this);
             text.setText("No Past Appointment");
             text.setLayoutParams(new LinearLayout.LayoutParams(
