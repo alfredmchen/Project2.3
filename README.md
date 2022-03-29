@@ -8,7 +8,7 @@ In this implementation iteration, we have implemented these main features:
 
 ```
 Book / cancel appointments in both rec centers (Lyon Center and Village Gym)
-View current/past appointments on summary page
+View current / past appointments on summary page
 ```
 
 Some additional features that we have implemented:
@@ -34,7 +34,7 @@ Booking/Canceling appointments:
 In the main page, users are shown with a map with two clickable button (Lyon Center and Village Gym).
 Clicking each corresponding buttons lead to booking pages for each gym. 
 In order to go to the summary page, users must click the current appointment frame on the main page.
-In the summary page, users can cancel upcoming/current appointments by clicking the red x buttons in the current appointment frame.
+In the summary page, users can cancel current appointments by clicking the red x buttons in the current appointment frame.
 ```
 
 Joining Waitlist and notification:
@@ -47,7 +47,7 @@ If any user cancels the fully booked gym appointment, everyone on the waitlist f
 Displaying current / past appointments:
 
 ```
-In the summary page, user are shown the current/past appointments through current/past appointment frames.
+In the summary page, user are shown the current / past appointments through current/past appointment frames.
 ```
 
 Setting profile picture:
