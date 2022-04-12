@@ -131,8 +131,7 @@
         android:layout_marginTop="165dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="447dp"
-        android:background="?android:attr/selectableItemBackground"
-        />
+        android:background="?android:attr/selectableItemBackground" />
 
 
 </RelativeLayout>

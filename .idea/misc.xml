@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/LenovoYoga/AndroidStudioProjects/USCRECSport/app/src/main/res/layout/activity_main_page.xml" value="0.21180364037506894" />
+        <entry key="..\:/Users/LenovoYoga/AndroidStudioProjects/USCRECSport/app/src/main/res/layout/activity_appointment_booking_page.xml" value="0.2" />
+        <entry key="..\:/Users/LenovoYoga/AndroidStudioProjects/USCRECSport/app/src/main/res/layout/activity_booking_page.xml" value="0.1" />
+        <entry key="..\:/Users/LenovoYoga/AndroidStudioProjects/USCRECSport/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/LenovoYoga/AndroidStudioProjects/USCRECSport/app/src/main/res/layout/activity_main_page.xml" value="0.27071823204419887" />
         <entry key="..\:/Users/LenovoYoga/AndroidStudioProjects/USCRECSport/app/src/main/res/layout/activity_register.xml" value="0.2" />
         <entry key="..\:/Users/LenovoYoga/AndroidStudioProjects/USCRECSport/app/src/main/res/layout/activity_summary_page.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_appointment_booking_page.xml" value="0.182518115942029" />
