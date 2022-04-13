@@ -40,8 +40,6 @@ import org.junit.runner.RunWith;
 public class MainActivityTest {
     @Rule
     public ActivityTestRule<MainActivity> intentsTestRuleA = new ActivityTestRule<>(MainActivity.class);
-//    @Rule
-//    public IntentsTestRule<MainActivity> intentsTestRule = new IntentsTestRule<>(MainActivity.class);
 
     @Test
     public void LoginscreenSetUpTest(){
