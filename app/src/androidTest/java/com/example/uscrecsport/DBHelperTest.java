@@ -228,7 +228,7 @@ public class DBHelperTest{
     }
 
     @Test
-    public void moveWaitlistToNotificationList(){
+    public void moveWaitlistToNotificationListTest(){
         dbHelper.insertUser("alfred", "chen", "111");
         dbHelper.insertWaitlist("village", 312, "alfred");
         dbHelper.insertWaitlist("village", 412, "alfred");
@@ -251,7 +251,6 @@ public class DBHelperTest{
 
     @Test
     public void deleteWaitlistTest(){
-
     }
 
 }
