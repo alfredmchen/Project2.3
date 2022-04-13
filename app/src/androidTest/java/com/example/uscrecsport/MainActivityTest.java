@@ -40,8 +40,6 @@ import org.junit.runner.RunWith;
 public class MainActivityTest {
     @Rule
     public ActivityTestRule<MainActivity> intentsTestRuleA = new ActivityTestRule<>(MainActivity.class);
-//    @Rule
-//    public IntentsTestRule<MainActivity> intentsTestRule = new IntentsTestRule<>(MainActivity.class);
 
     @Test
     public void LoginscreenSetUpTest(){
@@ -59,7 +57,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void LoginscreenSuccessToastTest(){
+    public void LoginScreenSuccessToastTest() throws InterruptedException {
         //Test for the correct screen displayed
         onView(withId(R.id.username)).perform(typeText("one"));
         onView(withId(R.id.password)).perform(typeText("one"));
@@ -87,6 +85,26 @@ public class MainActivityTest {
         onView(withId(R.id.regispassword)).check(matches(isDisplayed()));
         onView(withId(R.id.regisstudentid)).check(matches(isDisplayed()));
         Intents.release();
+    }
+
+    @Test
+    public void registerOldUserToastTest(){
+        //Test for the correct screen displayed
+        onView(withId(R.id.registerjumpbutton)).perform(click());
+        onView(withId(R.id.regisusername)).perform(typeText("one"));
+        onView(withId(R.id.regispassword)).perform(typeText("one"));
+        onView(withId(R.id.regisstudentid)).perform(typeText("111"));
+        closeSoftKeyboard();
+        onView(withId(R.id.registerbutton)).perform(click());
+        onView(withText("Username already exist")).inRoot(withDecorView(not(intentsTestRuleA.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void registerWithNoInfoToastTest(){
+        //Test for the correct screen displayed
+        onView(withId(R.id.registerjumpbutton)).perform(click());
+        onView(withId(R.id.registerbutton)).perform(click());
+        onView(withText("Enter all fields")).inRoot(withDecorView(not(intentsTestRuleA.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }
 
     @Test
