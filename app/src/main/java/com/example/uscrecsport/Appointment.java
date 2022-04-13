@@ -1,5 +1,7 @@
 package com.example.uscrecsport;
 
+import java.util.Objects;
+
 public class Appointment {
     private String RecCenter;
     private String appointment_id;
@@ -34,4 +36,5 @@ public class Appointment {
     public String getTime() {
         return time;
     }
+
 }

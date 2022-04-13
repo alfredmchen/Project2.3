@@ -37,18 +37,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL("create table notificationList(user TEXT, gym TEXT, appointment_id INTEGER)");
 
-
-        for(int i=1; i < 32; i++) {
-            for (int j = 8; j < 24; j+=2) {
-                for(int k = 3; k <6; k++){
-                    db.execSQL("insert into villageGym(month, date, time) values(" + k  +  "," + i + ", " + j + ")");
+        for(int k = 3; k <6; k++){
+            for(int i=1; i < 32; i++) {
+                for (int j = 8; j < 24; j+=2) {
+                    db.execSQL("insert into villageGym(month, date, time) values(" + k   +  "," + i  + ", " + j + ")");
                 }
             }
         }
-        for(int i=1; i < 32; i++) {
-            for (int j = 8; j < 24; j+=2) {
-                for(int k = 3; k <6; k++) {
-                    db.execSQL("insert into lyonGym(month, date, time) values(" + k + "," + i + ", " + j + ")");
+        for(int k = 3; k <6; k++) {
+            for(int i=1; i < 32; i++) {
+                for (int j = 8; j < 24; j+=2) {
+                    db.execSQL("insert into lyonGym(month, date, time) values(" + k   + "," + i + ", " + j + ")");
                 }
             }
         }
@@ -77,27 +76,12 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean insertTime(String month, String date, String time){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("month", month);
-        cv.put("date", date);
-        cv.put("time", time);
-        long res = db.insert("villageGym",null, cv);
-        if(res == -1){
-            return false;
-        }else{
-            return true;
-        }
-    }
-
     public boolean insertNotification(String gym, Integer appointment_id, String user){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("gym", gym);
         cv.put("appointment_id", appointment_id);
         cv.put("user", user);
-
         long res = db.insert("notificationList",null, cv);
         if(res == -1){
             return false;
@@ -153,9 +137,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return imgurl;
     }
 
-    public void setImageUrl(String un,String url){
+    public boolean setImageUrl(String un,String url){
         SQLiteDatabase db = this.getReadableDatabase();
-        db.execSQL("UPDATE users set picture_url = ? where username = ?", new String []{url,un});
+        ContentValues cv = new ContentValues();
+        cv.put("picture_url", url);
+
+        long res = db.update("users", cv, "username = ?", new String []{un});
+        if(res == -1){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public void moveWaitlistToNotificationList(String gym, Integer appointment_id){
@@ -244,6 +236,17 @@ public class DBHelper extends SQLiteOpenHelper {
         if(res == -1){
             return false;
         }else return true;
+    }
+
+    public String getUser(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cs;
+        cs = db.rawQuery("select * from users where student_ID = ?",
+                new String[]{id});
+        if (cs.moveToFirst()) {
+            return cs.getString(0);
+        }
+        return null;
     }
 
     public Integer getAppointmentId(String gym, String month, String date, String time){
@@ -449,21 +452,24 @@ public class DBHelper extends SQLiteOpenHelper {
     public List<Appointment> getNotification(String un){
         List<Appointment> result = new ArrayList<Appointment>();
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cs = db.rawQuery("select appointment_id, gym from notificationList where user = ?", new String[]{un});
-        if(cs.getCount() > 0){
-            while(cs.moveToNext()){
-                String apptid = cs.getString(cs.getColumnIndexOrThrow("appointment_id"));
-                String rec = cs.getString(cs.getColumnIndexOrThrow("gym"));
-                Cursor idcs = db.rawQuery("select month, date, time from lyonGym where appointment_id = ?", new String[]{apptid});
-                if(idcs.getCount() == 1 && idcs != null && idcs.moveToFirst()) {
-                    String month = idcs.getString(idcs.getColumnIndexOrThrow("month"));
-                    String day = idcs.getString(idcs.getColumnIndexOrThrow("date"));
-                    String hour = idcs.getString(idcs.getColumnIndexOrThrow("time"));
-                    Appointment temp = new Appointment(rec, apptid, month, day, hour);
-                    result.add(temp);
-                }
+        Cursor cs = db.rawQuery("select * from notificationList where user = ?", new String[]{un});
+        while(cs.moveToNext()){
+            String apptid = cs.getString(cs.getColumnIndexOrThrow("appointment_id"));
+            String rec = cs.getString(cs.getColumnIndexOrThrow("gym"));
+            System.out.println(rec);
+            Cursor idcs = db.rawQuery("select month, date, time from lyonGym where appointment_id = ?", new String[]{apptid});
+            String month = "";
+            String day = "";
+            String hour = "";
+            if(idcs.getCount() == 1 && idcs != null && idcs.moveToFirst()) {
+                 month = idcs.getString(idcs.getColumnIndexOrThrow("month"));
+                 day = idcs.getString(idcs.getColumnIndexOrThrow("date"));
+                 hour = idcs.getString(idcs.getColumnIndexOrThrow("time"));
             }
+            Appointment temp = new Appointment(rec, apptid, month, day, hour);
+            result.add(temp);
         }
+
         db.delete("notificationList","user=?",new String[]{un});
         cs.close();
         return result;
