@@ -174,7 +174,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean deleteWaitlist(String gym, Integer appointment_id){
+    public void deleteWaitlist(String gym, Integer appointment_id){
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "";
 
@@ -185,11 +185,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         Cursor cursor = db.rawQuery(queryString, null);
-        if(cursor.moveToFirst()){
-            return true;
-        }else{
-            return false;
-        }
+        cursor.moveToFirst();
     }
 
     public boolean insertAppointment(String gym, Integer appointment_id, String username){
