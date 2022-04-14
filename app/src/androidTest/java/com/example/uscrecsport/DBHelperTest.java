@@ -264,4 +264,20 @@ public class DBHelperTest{
         assertTrue("check delete waitlist test 2", dbHelper.insertWaitlist("village", 312, "alfred"));
     }
 
+    @Test
+    public void cancelAppointmentTest(){
+        dbHelper.insertUser("kwan", "pass", "208");
+        assertFalse("check if appointment is cancelled", dbHelper.checkAppointment("lyon", 513, "kwan"));
+        dbHelper.insertAppointment("lyon", 513, "kwan");
+        assertTrue("check if appointment is inserted", dbHelper.checkAppointment("lyon", 513, "kwan"));
+        dbHelper.cancelAppointment("lyon", 513, "kwan");
+        assertFalse("check if appointment is cancelled", dbHelper.checkAppointment("lyon", 513, "kwan"));
+    }
+
+    @Test
+    public void checkusernameTest(){
+        assertFalse("check if user exists already", dbHelper.checkusername("kwan"));
+        dbHelper.insertUser("kwan", "pass", "208");
+        assertTrue("check if user exists now", dbHelper.checkusername("kwan"));
+    }
 }
