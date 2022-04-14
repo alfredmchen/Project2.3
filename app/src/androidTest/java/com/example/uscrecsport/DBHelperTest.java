@@ -7,6 +7,7 @@ import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -251,6 +252,32 @@ public class DBHelperTest{
 
     @Test
     public void deleteWaitlistTest(){
+        dbHelper.insertUser("alfred", "chen", "111");
+        dbHelper.insertUser("ethan", "feng", "112");
+        dbHelper.insertWaitlist("village", 312, "alfred");
+        dbHelper.insertWaitlist("village", 312, "ethan");
+        assertFalse("check delete empty waitlist test ", dbHelper.insertWaitlist("village", 312, "alfred"));
+        dbHelper.deleteWaitlist("Village gym", 312);
+        assertTrue("check delete waitlist test 1", dbHelper.insertWaitlist("village", 312, "alfred"));
+        dbHelper.deleteWaitlist("Village gym", 312);
+        dbHelper.deleteWaitlist("Village gym", 312);
+        assertTrue("check delete waitlist test 2", dbHelper.insertWaitlist("village", 312, "alfred"));
     }
 
+    @Test
+    public void cancelAppointmentTest(){
+        dbHelper.insertUser("kwan", "pass", "208");
+        assertFalse("check if appointment is cancelled", dbHelper.checkAppointment("lyon", 513, "kwan"));
+        dbHelper.insertAppointment("lyon", 513, "kwan");
+        assertTrue("check if appointment is inserted", dbHelper.checkAppointment("lyon", 513, "kwan"));
+        dbHelper.cancelAppointment("lyon", 513, "kwan");
+        assertFalse("check if appointment is cancelled", dbHelper.checkAppointment("lyon", 513, "kwan"));
+    }
+
+    @Test
+    public void checkusernameTest(){
+        assertFalse("check if user exists already", dbHelper.checkusername("kwan"));
+        dbHelper.insertUser("kwan", "pass", "208");
+        assertTrue("check if user exists now", dbHelper.checkusername("kwan"));
+    }
 }
