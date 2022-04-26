@@ -130,17 +130,33 @@ public class MainPage extends Activity {
         }
         currentAppt.setText(resultCurAppt);
         currentAppt.setMovementMethod(new ScrollingMovementMethod());
-
-        TextView notification = (TextView)findViewById(R.id.waitlistview);
+        Button notification = (Button)findViewById(R.id.notificationbutton);
         List<Appointment> notilist = db.getNotification(username);
-        String resultnotification = "Notification \n";
-        for(Appointment a : notilist){
-            String temp = "";
-            temp += (a.getRecCenter() + ": " + a.getMonth() + "/" + a.getDate() + " " + a.getTime()+ ":00 is avaliable now");
-            resultnotification += temp;
+        int numNoti = notilist.size();
+        if(numNoti > 0){
+            notification.setText(numNoti + " notifications");
+        }else{
+            notification.setText("No notifications");
         }
-        notification.setText(resultnotification);
-        notification.setMovementMethod(new ScrollingMovementMethod());
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dialog  = new AlertDialog.Builder(MainPage.this);
+                String resultnotification = "";
+                for(Appointment a : notilist){
+                    String temp = "";
+                    temp += (a.getRecCenter() + ": " + a.getMonth() + "/" + a.getDate() + " " + a.getTime()+ ":00 is avaliable now \n");
+                    resultnotification += temp;
+                }
+                if(resultnotification.isEmpty()){
+                    dialog.setMessage("No notification avaliable...");
+                }else{
+                    dialog.setMessage(resultnotification);
+                }
+                dialog.setTitle("Notification");
+                dialog.show();
+            }
+        });
 
         TextView welcome = (TextView)findViewById(R.id.welcomeusertextview);
         String welcometxt = "Welcome " + username + "\n" + Integer.toString(currmonth) + "/" + Integer.toString(currday) + " " + Integer.toString(currhour) + ":00";

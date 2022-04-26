@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-420dp"
+        android:layout_marginBottom="-421dp"
         android:contentDescription="@string/usc_map"
         android:src="@drawable/usc_map"
         tools:ignore="ImageContrastCheck" />
@@ -64,31 +64,15 @@
     <TextView
         android:id="@+id/currentAppointmentTextView"
         android:layout_width="wrap_content"
-        android:layout_height="125dp"
+        android:layout_height="167dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="162dp"
+        android:layout_marginTop="234dp"
         android:layout_marginEnd="25dp"
         android:background="#CDC2C2"
         android:text="@string/current_appointments"
-        android:textColor="#424242" />
-
-    <TextView
-        android:id="@+id/waitlistview"
-        android:layout_width="wrap_content"
-        android:layout_height="78dp"
-        android:layout_above="@+id/village_button"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="312dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="76dp"
-        android:background="#CDC2C2"
-        android:text="@string/notification_list"
         android:textColor="#424242" />
 
     <ImageView
@@ -121,17 +105,32 @@
 
     <Button
         android:id="@+id/summarypagebutton"
-        android:layout_width="358dp"
-        android:layout_height="119dp"
+        android:layout_width="wrap_content"
+        android:layout_height="172dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginTop="165dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="447dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="230dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="329dp"
         android:background="?android:attr/selectableItemBackground" />
+
+    <Button
+        android:id="@+id/notificationbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="114dp"
+        android:layout_marginTop="166dp"
+        android:layout_marginEnd="113dp"
+        android:layout_marginBottom="507dp"
+        android:backgroundTint="@color/primary_color"
+        android:text="Notification" />
 
 
 </RelativeLayout>
