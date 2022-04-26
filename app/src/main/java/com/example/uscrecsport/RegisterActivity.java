@@ -27,21 +27,27 @@ public class RegisterActivity extends AppCompatActivity {
                 String username = un.getText().toString();
                 String password = pw.getText().toString();
                 String studentID = stuID.getText().toString();
-                if(username.equals("") || password.equals("") || studentID.equals("")){
+                if(username.equals("") || password.equals("") || studentID.equals("")) {
                     Toast.makeText(RegisterActivity.this, "Enter all fields", Toast.LENGTH_SHORT).show();
-                }else{
-                    if(db.checkusername(username)){
-                        Toast.makeText(RegisterActivity.this, "Username already exist", Toast.LENGTH_SHORT).show();
+                }else if(db.checkusername(username)) {
+                    Toast.makeText(RegisterActivity.this, "Username already exist", Toast.LENGTH_SHORT).show();
+                }else if(!studentID.matches("\\d+")){
+                    Toast.makeText(RegisterActivity.this, "Please enter valid number for studentID", Toast.LENGTH_SHORT).show();
+                }else if(studentID.matches("\\d+")){
+                    int length = String.valueOf(studentID).length();
+                    if(length != 10) {
+                        Toast.makeText(RegisterActivity.this, "Please enter 10 digits studentID", Toast.LENGTH_SHORT).show();
+                    }else if(db.checkStudentID(studentID)){
+                        Toast.makeText(RegisterActivity.this, "Student ID already exist", Toast.LENGTH_SHORT).show();
                     }else{
                         boolean last = db.insertUser(username,password,studentID);
                         if(last){
                             Toast.makeText(RegisterActivity.this, "successfully registered", Toast.LENGTH_SHORT).show();
-                        }else{
+                        }else {
                             Toast.makeText(RegisterActivity.this, "failed to register", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
-
             }
         });
 

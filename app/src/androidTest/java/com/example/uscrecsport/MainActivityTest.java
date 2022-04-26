@@ -57,7 +57,7 @@ public class MainActivityTest {
     }
 
     @Test
-    public void LoginscreenSetUpTest(){
+    public void LoginscreenSetUpTest() throws InterruptedException {
         //Test for the correct screen displayed
         onView(withText("RecSports Sign In")).check(ViewAssertions.matches(isDisplayed()));
         onView(withId(R.id.registerjumpbutton)).check(matches(isDisplayed()));
@@ -65,8 +65,9 @@ public class MainActivityTest {
     }
 
     @Test
-    public void LoginscreenFailedToastTest(){
+    public void LoginscreenFailedToastTest() throws InterruptedException {
         //Test for the correct screen displayed
+        Thread.sleep(500);
         onView(withId(R.id.loginbutton)).perform(click());
         onView(withText("Failed")).inRoot(withDecorView(not(intentsTestRuleA.getActivity().getWindow().getDecorView()))).check(matches(isDisplayed()));
     }

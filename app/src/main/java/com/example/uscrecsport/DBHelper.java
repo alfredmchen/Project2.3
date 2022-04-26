@@ -341,6 +341,16 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    public boolean checkStudentID(String un){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cs = db.rawQuery("select * from users where student_ID = ?", new String[] {un});
+        if(cs.getCount() > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public boolean checkusernamepassword(String un, String pw){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cs = db.rawQuery("select * from users where username = ? and password = ? ", new String[] {un,pw});
