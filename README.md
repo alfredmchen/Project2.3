@@ -60,6 +60,14 @@ In order to set new profile picture, click the profile picture which prompts use
 Profile picture will be updated/refreshed after user leaves the main page and come back at a later time.
 ```
 
+In this sprint 2.5, some additional features/improvements that we have implemented:
+
+```
+Student ID validation (only 10 digit (0-9), no used student ID allowed).
+Notification button (press notification and displays a popup of all waitlist notification).
+Improved UI for sign in / register page to enhance user experience.
+```
+
 
 
 
